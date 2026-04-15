@@ -8,7 +8,7 @@ const Features = () => {
   return (
     <section className=" md:py-20 sm:py-16 ">
       <div className=" flex flex-col gap-6 justify-center p-5 items-center">
-        <div className=" flex flex-col gap-3 justify-center p-5 items-center">
+        <div className=" flex flex-col gap-3 justify-center p-5 text-center items-center">
           <h1 className="font-bold text-3xl md:text-6xl text-white">
             {" "}
             Features{" "}

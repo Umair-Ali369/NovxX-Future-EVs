@@ -6,7 +6,7 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <nav>
-      <div className="flex gap-6 justify-between py-4 px-4 md:px-8 items-center bg-[#091413] md:sticky md:top-0 w-full">
+      <div className="flex gap-6 justify-between py-4 px-4 md:px-8 items-center bg-[#091413] md:fixed md:top-0 w-full z-50">
         <div className="flex flex-row justify-between items-center w-full">
           <Link to="/">
             <h1 className="font-bold text-2xl text-white">NovxX</h1>

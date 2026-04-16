@@ -3,20 +3,18 @@ import { FaChargingStation } from "react-icons/fa";
 import { GiCarBattery } from "react-icons/gi";
 import { GiArtificialIntelligence } from "react-icons/gi";
 import { FaRoute } from "react-icons/fa6";
+import { Link } from "react-router-dom";
 
 const Features = () => {
   return (
     <section className=" md:py-20 sm:py-16 ">
       <div className=" flex flex-col gap-6 justify-center p-5 items-center">
-        <div className=" flex flex-col gap-3 justify-center p-5 text-center items-center">
+        <div className=" flex flex-col gap-3 justify-center p-5 items-center text-center">
           <h1 className="font-bold text-3xl md:text-6xl text-white">
-            {" "}
-            Features{" "}
+           Smart Features for the Future Driving
           </h1>
           <p className="text-xl md:text-2xl text-gray-400">
-            {" "}
-            Smart tools designed to keep your EV experience effortless,
-            connected, and ready for the road ahead{" "}
+            Powerful tools designed to make your electric driving smarter, easier, and more connected
           </p>
         </div>
 
@@ -24,48 +22,46 @@ const Features = () => {
           <div className="p-6 border-2 border-[#44ACFF] rounded-md hover:shadow-xl bg-[#2C2C2C] flex flex-col justify-cneter items-center gap-4 text-center">
             <FaChargingStation size={80} className=" text-[#44ACFF]" />
             <h3 className="font-bold text-2xl  text-[#44ACFF]">
-              {" "}
-              Charging Station Finder{" "}
+              Smart Charging Locator
             </h3>
             <p className="text-xl text-gray-400">
-              {" "}
-              Locate nearby EV charging station{" "}
+             Instantly find nearby EV charging stations with real-time availability and smart suggestions
             </p>
           </div>
           <div className="px-8 py-5 border-2 border-[#44ACFF] rounded-md hover:shadow-xl bg-[#2C2C2C] flex flex-col justify-cneter items-center gap-4 text-center">
             <GiCarBattery size={80} className=" text-[#44ACFF]" />
             <h3 className="font-bold text-2xl text-[#44ACFF]">
               {" "}
-              Battery Intelligence{" "}
+              Battery Intelligence System
             </h3>
             <p className="text-xl text-gray-400">
-              {" "}
-              Tract battery health and estimate range{" "}
+             Track battery health, monitor performance, and get accurate range predictions in real time
             </p>
           </div>
           <div className="px-8 py-5 border-2 border-[#44ACFF] rounded-md hover:shadow-xl bg-[#2C2C2C] flex flex-col justify-cneter items-center gap-4 text-center">
             <GiArtificialIntelligence size={80} className=" text-[#44ACFF]" />
             <h3 className="font-bold text-2xl text-[#44ACFF] ">
               {" "}
-              AI Assistant{" "}
+              AI Driving Assistant{" "}
             </h3>
             <p className="text-xl text-gray-400">
-              {" "}
-              Get smart recommendation for your EV usage{" "}
+             Get smart recommendations to optimize your driving, charging, and energy usage
             </p>
           </div>
           <div className="px-8 py-5 border-2 border-[#44ACFF] rounded-md hover:shadow-xl bg-[#2C2C2C] flex flex-col justify-cneter items-center gap-4 text-center">
             <FaRoute size={80} className=" text-[#44ACFF]" />
             <h3 className="font-bold text-2xl text-[#44ACFF] ">
-              {" "}
-              Smart Route Planning{" "}
+             Intelligent Route Planning
             </h3>
             <p className="text-xl text-gray-400">
-              {" "}
-              Plane routes based on charging availability and battery level{" "}
+              Plan routes based on battery level, traffic, and charging station availability
             </p>
           </div>
         </div>
+
+       <button className="px-10 py-3 rounded-md border-2 border-blue-400 text-white font-semibold ">
+          <Link to="/features"> Explore More </Link>
+        </button>
       </div>
     </section>
   );

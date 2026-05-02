@@ -34,12 +34,18 @@ const Navbar = () => {
           <Link to="/stations" className="hover:text-[#44ACFF]">
             Stations
           </Link>
+          <Link to="/register" className="hover:text-[#44ACFF]">
+           Register
+          </Link>
+          <Link to="/login" className="hover:text-[#44ACFF]">
+          Login
+          </Link>
         </div>
       </div>
 
       {isOpen && (
         <div className="md:hidden bg-gray-800">
-          <div className="flex flex-col gap-4 font-semibold p-4 text-white">
+          <div className="flex flex-col gap-4 font-semibold p-4 text-black bg-gray-300">
             <Link
               to="/"
               className="hover:text-[#44ACFF]"
@@ -75,6 +81,20 @@ const Navbar = () => {
               onClick={() => setIsOpen(false)}
             >
               Stations
+            </Link>
+            <Link
+              to="/register"
+              className="hover:text-[#44ACFF]"
+              onClick={() => setIsOpen(false)}
+            >
+              Register
+            </Link>
+             <Link
+              to="/login"
+              className="hover:text-[#44ACFF]"
+              onClick={() => setIsOpen(false)}
+            >
+              Login
             </Link>
           </div>
         </div>

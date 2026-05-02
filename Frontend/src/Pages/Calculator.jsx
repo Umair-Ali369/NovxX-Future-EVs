@@ -8,34 +8,40 @@ const Calculator = () => {
   const [error, setError] = useState("");
 
   const calculate = () => {
-    if (!batteryPercent || !fullRange || !DrivingCondition) {
+    if (
+      batteryPercent === "" ||
+      fullRange === "" ||
+      DrivingCondition === ""
+    ) {
       setResult("");
       setError("Please Enter data to get result!");
-    }
-    if (batteryPercent > 100) {
-      setResult("");
-      setError("Please Enter the valid Value of Battery! (max = 100)");
-    }
-    if (batteryPercent < 1 || fullRange < 1) {
-      setResult("");
-      setError("Please Enter a valid Value!");
-    }
+    } else {
+      setError("");
+      let BaseRange = (batteryPercent / 100) * fullRange;
+      let impact = 0;
+      if (DrivingCondition === "city") impact = 0.1;
+      if (DrivingCondition === "highway") impact = 0.05;
+      if (DrivingCondition === "mixed") impact = 0.2;
 
-    if (batteryPercent <= 100 && fullRange > 1 && DrivingCondition) {
-      const batteryUsed = batteryPercent / 100;
-      let drivCondition;
-      if (DrivingCondition === "City" || "city") {
-        drivCondition = 0.8;
-      } else if (DrivingCondition === "Highway" || "highway") {
-        drivCondition = 1.1;
-      } else {
-        drivCondition = 1.2;
-      }
-      const EstimatedRange = batteryUsed * fullRange * drivCondition;
-    
-      setError("")
-      setResult(EstimatedRange.toFixed(2));
+      let finalRange = BaseRange - BaseRange * impact;
+
+      let Efficiency;
+      if (finalRange < fullRange * 0.3) Efficiency = "Low";
+      else if (finalRange < fullRange * 0.6) Efficiency = "Moderate";
+
+      setResult({
+        fullRange: finalRange.toFixed(1),
+        Efficiency,
+        DrivingCondition,
+      });
     }
+  };
+
+  const resetForm = () => {
+    setBatteryPercent("");
+    setFullRange("");
+    setDrivingCondition("");
+    setResult("");
   };
 
   return (
@@ -48,7 +54,7 @@ const Calculator = () => {
           <div className="w-full flex flex-col gap-2 text-start">
             <label className="font-semibold text-white text-xl">
               {" "}
-              * Battery Percentage{" "}
+              * Current Battery Level
             </label>
             <input
               type="number"
@@ -56,30 +62,33 @@ const Calculator = () => {
               min="0"
               max="100"
               className="w-full p-3 rounded-sm"
+              value={batteryPercent}
               onChange={(e) => setBatteryPercent(e.target.value)}
             />
           </div>
           <div className="w-full flex flex-col gap-2 text-start">
             <label className="font-semibold text-white text-xl">
               {" "}
-              * Full Range (km){" "}
+              * Vehicle Full Range (km)
             </label>
             <input
               type="number"
               step="1"
               placeholder="Enter Full Range (km)..."
               className="w-full p-3 rounded-sm"
+              value={fullRange}
               onChange={(e) => setFullRange(e.target.value)}
             />
           </div>
           <div className="w-full flex flex-col gap-2 text-start">
             <label className="font-semibold text-white text-xl">
               {" "}
-              * Driving Condition{" "}
+              * Select Driving Condition{" "}
             </label>
             <select
               className="w-full p-3 rounded-sm"
               onChange={(e) => setDrivingCondition(e.target.value)}
+              value={DrivingCondition}
             >
               <option value="">Select</option>
               <option value="city">City </option>
@@ -94,7 +103,9 @@ const Calculator = () => {
             >
               Calculate
             </button>
-            <button className="px-5 py-3 rounded-md border-2 border-blue-400 text-white font-semibold w-full"
+            <button
+              onClick={resetForm}
+              className="px-5 py-3 rounded-md border-2 border-blue-400 text-white font-semibold w-full"
             >
               Reset
             </button>
@@ -102,13 +113,13 @@ const Calculator = () => {
           {result !== "" && (
             <div className="mt-5 p-5 flex flex-col gap-4 items-start bg-gray-700 rounded ">
               <p className="text-green-400 font-bold text-2xl">
-                Esitimated Range : {result} km
+                Esitimated Range : {result.fullRange} km
               </p>
               <p className="text-green-400 font-bold text-2xl capitalize">
-                Driving Condition : {DrivingCondition}{" "}
+                Driving Condition : {result.DrivingCondition}{" "}
               </p>
               <p className="text-green-400 font-bold text-2xl">
-                Battery Used : {100 - batteryPercent}%
+                Efficiency : {result.Efficiency}
               </p>
             </div>
           )}

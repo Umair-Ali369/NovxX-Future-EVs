@@ -4,44 +4,41 @@ const Calculator = () => {
   const [batteryPercent, setBatteryPercent] = useState("");
   const [fullRange, setFullRange] = useState("");
   const [DrivingCondition, setDrivingCondition] = useState("");
+  const [acUsage, setAcUsage] = useState(false);
+  const [passengers, setPassengers] = useState(1);
   const [result, setResult] = useState("");
   const [error, setError] = useState("");
 
-  const calculate = () => {
-    if (
-      batteryPercent === "" ||
-      fullRange === "" ||
-      DrivingCondition === ""
-    ) {
-      setResult("");
-      setError("Please Enter data to get result!");
-    } else {
-      setError("");
-      let BaseRange = (batteryPercent / 100) * fullRange;
-      let impact = 0;
-      if (DrivingCondition === "city") impact = 0.1;
-      if (DrivingCondition === "highway") impact = 0.05;
-      if (DrivingCondition === "mixed") impact = 0.2;
-
-      let finalRange = BaseRange - BaseRange * impact;
-
-      let Efficiency;
-      if (finalRange < fullRange * 0.3) Efficiency = "Low";
-      else if (finalRange < fullRange * 0.6) Efficiency = "Moderate";
-
-      setResult({
-        fullRange: finalRange.toFixed(1),
-        Efficiency,
-        DrivingCondition,
-      });
+  const calculate = async () => {
+    if (batteryPercent === "" || fullRange === "" || DrivingCondition === "") {
+      setResult(null);
+      setError("Please Enter all required data to get result!");
+      return;
     }
+    setError("");
+    const res = await fetch("http://localhost:9000/ev/api/calculator", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        batteryPercent,
+        fullRange,
+        DrivingCondition,
+        passengers,
+      }),
+    });
+
+    const data = await res.json();
+    setResult(data);
   };
 
   const resetForm = () => {
     setBatteryPercent("");
     setFullRange("");
     setDrivingCondition("");
-    setResult("");
+    setResult(null);
+    setAcUsage(false);
+    setPassengers(1);
+    setError("");
   };
 
   return (
@@ -96,6 +93,30 @@ const Calculator = () => {
               <option value="mixed">Mixed </option>
             </select>
           </div>
+          <div className="w-full flex flex-col gap-2 text-start">
+            <label className="font-semibold text-white text-xl">
+              * Passangeres
+            </label>
+            <input
+              type="number"
+              placeholder="Enter Passangers..."
+              className="w-full p-3 rounded-sm"
+              value={passengers}
+              onChange={(e) => setPassengers(e.target.value)}
+            />
+          </div>
+          <div className="w-full flex justify-between gap-2 text-start">
+            <label className="font-semibold text-white text-xl">
+              {" "}
+              * AC Usage
+            </label>
+            <input
+              type="checkbox"
+              className="w-44 p-3 rounded-sm"
+              onChange={(e) => setAcUsage(e.target.checked)}
+            />
+          </div>
+
           <div className="flex flex-col sm:flex-row gap-4 mx-auto w-full">
             <button
               className="px-5 py-3 rounded-md bg-blue-500 text-white font-semibold w-full"
@@ -110,24 +131,15 @@ const Calculator = () => {
               Reset
             </button>
           </div>
-          {result !== "" && (
-            <div className="mt-5 p-5 flex flex-col gap-4 items-start bg-gray-700 rounded ">
-              <p className="text-green-400 font-bold text-2xl">
-                Esitimated Range : {result.fullRange} km
-              </p>
-              <p className="text-green-400 font-bold text-2xl capitalize">
-                Driving Condition : {result.DrivingCondition}{" "}
-              </p>
-              <p className="text-green-400 font-bold text-2xl">
-                Efficiency : {result.Efficiency}
-              </p>
+          {result && (
+            <div className="bg-gray-700 p-4 rounded text-white mt-4 text-start">
+              <p>Estimated Range: {result.range} km</p>
+              <p>Efficiency: {result.Efficiency}</p>
+              <p>Battery Usage: {result.BatteryUsage}%</p>
+              <p>Driving Condition: {result.Driving_Condition}</p>
             </div>
           )}
-          {error !== "" && (
-            <div className="mt-5 p-5  bg-gray-700 rounded w-full ">
-              <p className="text-red-400 text-center ">{error}</p>
-            </div>
-          )}
+          {error && <p className="text-red-400 mx-auto py-3">{error}</p>}
         </div>
       </div>
     </section>

@@ -6,6 +6,7 @@ const Calculator = () => {
   const [DrivingCondition, setDrivingCondition] = useState("");
   const [acUsage, setAcUsage] = useState(false);
   const [passengers, setPassengers] = useState(1);
+  const [insights, setInsights] = useState([])
   const [result, setResult] = useState("");
   const [error, setError] = useState("");
 
@@ -24,11 +25,13 @@ const Calculator = () => {
         fullRange,
         DrivingCondition,
         passengers,
+        insights
       }),
     });
 
     const data = await res.json();
     setResult(data);
+    setInsights(data.insights)
   };
 
   const resetForm = () => {
@@ -133,10 +136,20 @@ const Calculator = () => {
           </div>
           {result && (
             <div className="bg-gray-700 p-4 rounded text-white mt-4 text-start">
-              <p>Estimated Range: {result.range} km</p>
+              <p>Estimated Range: {result.Range} km</p>
               <p>Efficiency: {result.Efficiency}</p>
               <p>Battery Usage: {result.BatteryUsage}%</p>
               <p>Driving Condition: {result.Driving_Condition}</p>
+              {result.insights && result.insights.length > 0 && (
+                <div className="mt-3">
+                  <h3 className="font-bold text-lg">Insights:</h3>
+                  <ul className="list-disc list-inside">
+                    {result.insights.map((msg, i) => (
+                      <li key={i}>{msg}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
             </div>
           )}
           {error && <p className="text-red-400 mx-auto py-3">{error}</p>}

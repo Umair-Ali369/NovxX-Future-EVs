@@ -1,12 +1,15 @@
-const express = require('express');
-const ConnectDB = require("./Config/db")
-const cors = require('cors');
-const dotevn = require("dotenv")
+const express = require("express");
+const ConnectDB = require("./Config/db");
+const cors = require("cors");
+const dotenv = require("dotenv");
 
-dotevn.config()
+const userRoutes = require("./Routes/userRoutes")
+
+dotenv.config();
+ConnectDB();
 const app = express();
+app.use(express.json())
 app.use(cors());
-ConnectDB()
 
 // Dummy data
 const stations = [
@@ -67,10 +70,12 @@ const stations = [
 ];
 
 // Route to return dummy data
-app.get('/stations', (req, res) => {
+app.get("/stations", (req, res) => {
   res.json(stations);
 });
 
-const PORT = process.env.PORT || 9000
+app.use("/ev/api", userRoutes);
+
+const PORT = process.env.PORT || 9000;
 
 app.listen(PORT, () => console.log("Backend running on port 9000"));

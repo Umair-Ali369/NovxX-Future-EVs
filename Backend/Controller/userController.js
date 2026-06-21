@@ -1,7 +1,7 @@
-const bcrypt = require('bcryptjs')
-const User  = require('../Models/User')
-const jwt = require('jsonwebtoken')
-
+const bcrypt = require("bcryptjs");
+const User = require("../Models/User");
+const jwt = require("jsonwebtoken");
+const Calculator = require("../Models/Calculator");
 
 // REGISTER USERS
 exports.registerUser = async (req, res) => {
@@ -24,7 +24,7 @@ exports.registerUser = async (req, res) => {
     const user = await User.create({
       name,
       email,
-      password: hashPassword
+      password: hashPassword,
     });
 
     res.status(200).json({
@@ -32,7 +32,7 @@ exports.registerUser = async (req, res) => {
       User: {
         name: user.name,
         email: user.email,
-      }
+      },
     });
   } catch (err) {
     console.log("REGISTER ERROR:", err);
@@ -54,13 +54,9 @@ exports.loginUser = async (req, res) => {
       return res.status(400).json({ message: "Invalid Credential" });
     }
 
-    const token = jwt.sign(
-      { id: user._id},
-      process.env.JWT_SECRET,
-      {
-        expiresIn: "30d",
-      },
-    );
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+      expiresIn: "30d",
+    });
 
     res.status(200).json({
       message: "Logged!",
@@ -72,25 +68,53 @@ exports.loginUser = async (req, res) => {
   }
 };
 
-// CURRENT USER
+// DASHBOARD VIEW
 exports.dashboard = async (req, res) => {
   try {
-    const history = await Calculator.find({ userId : req.userId})
-    .sort({date : -1})
-    .limit(5)
+    const userId = req.User?.id || req.params.userId;
+    const filter = userId ? { userId } : {};
+    const totalCalculationCount = await Calculator.countDocuments(filter);
 
-    const averageRange = history.reduce((sum, h) => sum + h.finalRange, 0 ) / history.length || 0
-     const mostUsed = history
-    .map((h) => h.DrivingCondition)
-    .sort(
-      (a, b) =>
-        history.filter((h) => h.DrivingCondition === b).length -
-        history.filter((h) => h.DrivingCondition === a).length
-    )[0];
+    const history = await Calculator.find(filter).sort({ date: -1 });
 
-    res.status(200).json({ lastFive: history, avgRange : averageRange , mostUsed });
+    if (history.length === 0) {
+      return res.status(200).json({
+        data: {
+          aveRange: 0,
+          mostUsed: "N/A",
+          totalCalculationCount: 0,
+          lastFive: [],
+        },
+      });
+    }
+
+    // ---- Average Range ----
+    const averageRange =
+      history.reduce((sum, h) => sum + h.finalRange, 0) / history.length || 0;
+    // ---- Most Used Driving Condition ----
+    const conditionCount = history.reduce((acc, r) => {
+      const key = r.DrivingCondition || "unknown";
+      acc[key] = (acc[key] || 0) + 1;
+      return acc;
+    }, {});
+
+    const mostUsed = Object.entries(conditionCount).sort(
+      (a, b) => b[1] - a[1]
+    )[0][0];
+
+    const RECENT_LIMIT = 10;
+    const lastFive = history.slice(0, RECENT_LIMIT);
+
+    res
+      .status(200)
+      .json({
+        lastFive,
+        avgRange: averageRange,
+        mostUsed,
+        totalCalculationCount,
+      });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: "Server Error"  , Error : error});
+    res.status(500).json({ message: "Server Error", Error: error });
   }
 };

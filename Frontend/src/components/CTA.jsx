@@ -3,18 +3,21 @@ import { Link } from "react-router-dom";
 
 const CTA = () => {
   return (
-    <section className=" p-5 md:py-20 sm:py-16 py-12">
-      <div className="flex flex-col gap-6 justify-center items-center max-w-6xl mx-auto">
-        <h2 className="font-bold text-4xl md:text-6xl my-5 text-white text-center">
+    <section className="bg-[#091413] py-24 px-6 border-t border-white/5">
+      <div className="max-w-3xl mx-auto flex flex-col items-center text-center gap-6">
+        <h2 className="font-bold text-3xl md:text-5xl text-[#E8EDEC]">
           Ready to Go Electric?
         </h2>
-        <p className="text-xl text-gray-400 text-center max-w-4xl">
-          Join the movement toward cleaner, smarter mobility.
-          The future of transportation starts today  and you can be part of it
+        <p className="text-lg text-gray-400 max-w-xl">
+          Join the movement toward cleaner, smarter mobility. The future of
+          transportation starts today and you can be part of it
         </p>
-        <button className="px-10 py-3 rounded-md border-2 border-blue-400 text-white font-semibold ">
-          <Link> Get Started Now </Link>
-        </button>
+        <Link
+          to="/register"
+          className="px-8 py-3.5 rounded-lg border border-white/15 text-[#E8EDEC] font-semibold hover:border-[#44ACFF]/50 hover:bg-white/5 transition-colors"
+        >
+          Get Started Now
+        </Link>
       </div>
     </section>
   );

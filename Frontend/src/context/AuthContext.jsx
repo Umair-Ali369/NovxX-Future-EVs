@@ -9,14 +9,12 @@ export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem("token") || null);
   const navigate = useNavigate();
 
-
-
   const register = async (formData) => {
     try {
       const { data } = await API.post("/user/register", formData);
-      navigate("/login")
+      navigate("/login");
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   };
 
@@ -28,28 +26,49 @@ export const AuthProvider = ({ children }) => {
       localStorage.setItem("user", JSON.stringify(data.User));
 
       setUser(data.User);
-      setToken(data.token)
-      navigate("/dashboard")
+      setToken(data.token);
+      navigate("/dashboard");
     } catch (error) {
       return error;
-      console.log(error)
+      console.log(error);
     }
   };
 
   useEffect(() => {
     if (token) {
       const storedUser = localStorage.getItem("user");
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
-    }
+      if (storedUser) {
+        setUser(JSON.parse(storedUser));
+      }
     }
   }, [token]);
+
+  const updateProfile = async (profileData) => {
+    try {
+      const { data } = await API.put("/profile", profileData);
+      setUser(data.data);
+      return true
+    } catch (error) {
+      console.error("Profile update error:", error);
+      return false;
+    }
+  };
+
+  const getProfile = async () => {
+    try {
+      const { data } = API.get("/profile");
+      setUser(data.data);
+    } catch (error) {
+      console.error("Get profile error:", error);
+      return null;
+    }
+  };
 
   const logOut = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
     setUser(null);
-    setUser(null)
+    setUser(null);
     window.location.href = "/login";
   };
 
@@ -59,6 +78,8 @@ export const AuthProvider = ({ children }) => {
         user,
         register,
         login,
+        updateProfile,
+        getProfile,
         logOut,
       }}
     >

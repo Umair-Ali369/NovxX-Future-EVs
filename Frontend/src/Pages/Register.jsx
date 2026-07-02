@@ -27,6 +27,8 @@ const Register = () => {
         email : "",
         password : ""
       })
+
+      navigate("/vehicle-setup")
     }
   }
   return (

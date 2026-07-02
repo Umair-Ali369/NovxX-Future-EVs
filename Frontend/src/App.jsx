@@ -11,7 +11,10 @@ import Register from "./Pages/Register";
 import Login from "./Pages/Login";
 import Dashboard from "./Pages/Dashboard";
 import ProtectedRoute from "./Api/ProtectRoute";
+import Profile from "./Pages/Profile"
 import { AuthProvider } from "./context/AuthContext";
+import VehicleSetup from "./Pages/VehicleSetup";
+import ConceptVehicle from "./Pages/ConceptVehicle";
 
 const App = () => {
   return (
@@ -23,12 +26,29 @@ const App = () => {
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/features" element={<Features />} />
+        <Route path="/concept" element={<ConceptVehicle/>}/>
 
         <Route
           path="/calculator"
           element={
             <ProtectedRoute>
               <Calculator />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/profile"
+          element={
+            <ProtectedRoute>
+              <Profile />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/vehicle-setup"
+          element={
+            <ProtectedRoute>
+              <VehicleSetup />
             </ProtectedRoute>
           }
         />

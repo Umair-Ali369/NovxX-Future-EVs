@@ -8,7 +8,7 @@ const Features = () => {
   return (
     <section className=" bg-gray-900  ">
       <div className="relative h-screen w-full flex items-center justify-center ">
-        <div className=' bg-center absolute inset-0 z-10 bg-[url("https://copilot.microsoft.com/th/id/BCO.89e4adc5-10be-436e-aa93-ce4e7d000407.png")] bg-cover opacity-20'></div>
+        <div className=' bg-center absolute inset-0 z-10 bg-cover opacity-20'  style={{ backgroundImage: `url(${feature_image})` }}></div>
         <div className="relative z-10 flex flex-col justify-center items-center max-w-6xl mx-auto px-4 text-center">
           <h1 className="font-bold text-3xl md:text-5xl text-white ">
             Powerful Features for Smarter Electric Driving

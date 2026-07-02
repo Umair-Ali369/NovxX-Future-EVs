@@ -23,7 +23,7 @@ export const CalculatorProvider = ({ children }) => {
 
 
   return (
-    <CalculatorContext.Provider value={{ EVresult, calculate, loading }}>
+    <CalculatorContext.Provider value={{ EVresult,setEVResult, calculate, loading }}>
       {children}
     </CalculatorContext.Provider>
   );

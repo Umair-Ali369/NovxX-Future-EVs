@@ -1,25 +1,63 @@
-import React from 'react'
+import React from "react";
+
+const STEPS = [
+  {
+    num: "01",
+    title: "Connect Your EV",
+    desc: "Enter your vehicle details and current battery status.",
+  },
+  {
+    num: "02",
+    title: "Analyze Data",
+    desc: "Our system processes your data to predict performance and optimize efficiency.",
+  },
+  {
+    num: "03",
+    title: "Get smart results",
+    desc: "Recieve charging suggestions, optimized routes, and performance insights.",
+  },
+  {
+    num: "04",
+    title: "Stay Connected",
+    desc: "Recieve real time updates and notifications for your charging session and performance.",
+  },
+];
 
 const HowWork = () => {
   return (
-    <section className=' flex flex-col gap-4 justify-center p-5 items-center md:py-20 sm:py-16 py-12'>
-        <h2 className='font-bold text-3xl md:text-6xl my-5 text-white text-center'> How NovxX Works? </h2>
-        <div className='grid grid-cols-1 md:grid-cols-3 gap-5 max-w-6xl'>
-            <div  className='px-8 py-5 border-2 border-[#44ACFF] rounded-md shadow-sm hover:shadow-lg bg-[#2C2C2C] flex flex-col justify-cneter items-center gap-2 text-center'>
-                <h3 className='font-bold text-2xl  text-[#44ACFF]'> 1. Connect Your EV </h3>
-                <p className='text-xl text-gray-400'> Enter your vehicle details and current battery status </p>
+    <section className="bg-[#091413] py-24 px-6 border-t border-white/5">
+      <div className="max-w-6xl mx-auto">
+        <p className="text-[#44ACFF] font-semibold tracking-widest uppercase text-sm mb-3 text-center">
+          {" "}
+          The Processs{" "}
+        </p>
+        <h2 className="font-bold text-3xl md:text-5xl text-[#E8EDEC] text-center mb-16">
+          {" "}
+          How NovxX Works?{" "}
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 relative">
+          {STEPS.map((step, i) => (
+            <div key={step.num} className="relative">
+              <div className="bg-[#0F1F1D] border border-white/10 rounded-xl p-8 flex flex-col gap-3 h-full hover:border-[#44ACFF]/40 transition-colors">
+                <span className="text-[#44ACFF] font-bold text-2xl">
+                  {" "}
+                  {step.num}{" "}
+                </span>
+                <h3 className="font-bold text-xl text-[#E8EDEC]">
+                  {" "}
+                  {step.title}{" "}
+                </h3>
+                <p className="text-gray-400 leading-relaxed"> {step.desc} </p>
+              </div>
+              {i < STEPS.length - 1 && (
+                <div className="hidden md:block absolute top-1/2 -right-3 w-6 h-px bg-[#44ACFF]/30" />
+              )}
             </div>
-            <div className='px-8 py-5 border-2 border-[#44ACFF] rounded-md shadow-sm hover:shadow-lg bg-[#2C2C2C] flex flex-col justify-cneter items-center gap-2 text-center'>
-                <h3 className='font-bold text-2xl  text-[#44ACFF]'> 2. Analyze Data </h3>
-                <p className='text-xl text-gray-400'> Our system processes your data to predict performance and optimize efficiency </p>
-            </div>
-            <div className='px-8 py-5 border-2 border-[#44ACFF] rounded-md shadow-sm hover:shadow-lg bg-[#2C2C2C] flex flex-col justify-cneter items-center gap-2 text-center'>
-                <h3 className='font-bold text-2xl  text-[#44ACFF]'> 3. Get Smart Results </h3>
-                <p className='text-xl text-gray-400'> Receive charging suggestions, optimized routes, and performance insights</p>
-            </div>
+          ))}
         </div>
+      </div>
     </section>
-  )
-}
+  );
+};
 
-export default HowWork
+export default HowWork;

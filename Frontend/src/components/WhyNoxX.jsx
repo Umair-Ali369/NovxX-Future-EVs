@@ -4,7 +4,7 @@ const REASONS = [
   {
     num: "01",
     title: "Smart EV insights",
-    desc: "Get clear, actionable insights to improve performence, efficiency , and overall EV experience.",
+    desc: "Get clear, actionable insights to improve performance, efficiency , and overall EV experience.",
   },
   {
     num: "02",
@@ -13,8 +13,8 @@ const REASONS = [
   },
   {
     num: "03",
-    title: "AI-Powred Optimization",
-    desc: "Advance algorithm optimize charging, balance energy usage, and enhance battery performence.",
+    title: "AI-Powered Optimization",
+    desc: "Advanced algorithm optimize charging, balance energy usage, and enhance battery performence.",
   },
 ];
 

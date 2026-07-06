@@ -37,7 +37,7 @@ const Features = () => {
           Smart features for the future of driving
         </h2>
         <p className="text-lg text-gray-400 text-center max-w-2xl mb-16">
-          Powerfull tools designed to make your electric driving smarter, easier and more connected
+          Powerful tools designed to make your electric driving smarter, easier and more connected
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">

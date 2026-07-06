@@ -21,12 +21,12 @@ const Hero = () => {
         </span>
 
         <h1 className="font-bold text-4xl md:text-6xl lg:text-7xl text-[#E8EDEC] leading-[1.05] tracking-tight"> 
-            Intellingence EV Platform
+            Intellingent EV Platform
             <br />
             for smarter mobility
         </h1>
         <p className="text-lg md:text-xl text-gray-400 mt-6 max-w-2xl leading-relaxed"> 
-           Optimized battery performance, discover charging stations, and make 
+           Optimize battery performance, discover charging stations, and make 
            data-driven decisions for your electric vehicle
         </p>
 
@@ -41,7 +41,7 @@ const Hero = () => {
             to="/features"
             className="px-7 py-3.5 rounded-lg border border-white/15 text-[#E8EDEC] font-semibold hover:border-[#44ACFF]/50 hover:bg-white/5 transition-colors"
             >
-              Exlore Features
+              Explore Features
             </Link>
         </div>
 

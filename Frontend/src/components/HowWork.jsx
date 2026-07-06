@@ -9,12 +9,12 @@ const STEPS = [
   {
     num: "02",
     title: "Analyze Data",
-    desc: "Our system processes your data to predict performance and optimize efficiency.",
+    desc: "Our system process your data to predict performance and optimize efficiency.",
   },
   {
     num: "03",
     title: "Get smart results",
-    desc: "Recieve charging suggestions, optimized routes, and performance insights.",
+    desc: "Receive charging suggestions, optimized routes, and performance insights.",
   },
   {
     num: "04",
@@ -35,7 +35,7 @@ const HowWork = () => {
           {" "}
           How NovxX Works?{" "}
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 relative">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
           {STEPS.map((step, i) => (
             <div key={step.num} className="relative">
               <div className="bg-[#0F1F1D] border border-white/10 rounded-xl p-8 flex flex-col gap-3 h-full hover:border-[#44ACFF]/40 transition-colors">

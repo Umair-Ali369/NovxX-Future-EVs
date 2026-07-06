@@ -45,10 +45,10 @@ const Navbar = () => {
             Features
           </Link>
           <Link to="/concept" className={navLinkClass("/concept")}>
-            About
+            Concept
           </Link>
           <Link to="/about" className={navLinkClass("/about")}>
-            Features
+            About
           </Link>
         </div>
 

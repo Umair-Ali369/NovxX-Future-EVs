@@ -66,7 +66,7 @@ Building the software brain of the future vehicle.
 - First physical NovxX concept vehicle.
 - Software-first. Designed for emerging market roads.
 
-###P hase 4 — Vision
+### Phase 4 — Vision
 - Full Mobility Ecosystem
 - NovxX vehicles + charging network + platform.
 - One connected experience across emerging markets.

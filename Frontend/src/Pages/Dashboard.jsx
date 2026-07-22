@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { useDashboard } from "../context/DashboardContext";
+import useScrollReveal from "../hooks/useScrollReveal";
 import {
   ResponsiveContainer,
   LineChart,
@@ -30,9 +31,8 @@ const CONDITION_COLORS = {
   mixed: "#06b6d4",
 };
 
-// Stat card component
 const StatCard = ({ label, value, icon }) => (
-  <div className="bg-[#0F1F1D] border border-white/10 rounded-xl p-6 flex flex-col gap-3 hover:border-[#44ACFF]/30 transition-colors">
+  <div className="bg-[#0F1F1D] border border-white/10 rounded-xl p-6 flex flex-col gap-3 hover:border-[#44ACFF]/30 card-lift transition-colors">
     <div className="flex items-center justify-between">
       <p className="text-sm text-gray-500 uppercase tracking-wider">{label}</p>
       <span className="text-xl">{icon}</span>
@@ -41,9 +41,7 @@ const StatCard = ({ label, value, icon }) => (
   </div>
 );
 
-// Shared dark tooltip for all charts
 const CustomTooltip = ({ active, payload, label }) => {
-  // Fixed: was missing ! before payload.length
   if (!active || !payload || !payload.length) return null;
   return (
     <div className="bg-[#091413] border border-white/15 rounded-lg p-3 text-sm">
@@ -61,7 +59,14 @@ const Dashboard = () => {
   const { user } = useAuth();
   const { statsData, loading } = useDashboard();
 
-  // ---- Loading state ----
+  // Each section gets its own scroll reveal ref
+  const statsRef = useScrollReveal();
+  const chartsRef = useScrollReveal();
+  const conditionRef = useScrollReveal();
+  const tableRef = useScrollReveal();
+  const ctaRef = useScrollReveal();
+
+  // ── Loading state ──
   if (loading) {
     return (
       <div className="min-h-screen bg-[#091413] flex items-center justify-center">
@@ -73,8 +78,9 @@ const Dashboard = () => {
     );
   }
 
-  // ---- No data state ----
-  if (!statsData) {
+  // ── No data / not logged in state ──
+
+  if (!statsData || !statsData.data) {
     return (
       <div className="min-h-screen bg-[#091413] flex flex-col items-center justify-center gap-6 px-6 text-center">
         <div className="w-16 h-16 rounded-full bg-[#44ACFF]/10 border border-[#44ACFF]/20 flex items-center justify-center text-2xl">
@@ -87,7 +93,7 @@ const Dashboard = () => {
         </p>
         <Link
           to="/calculator"
-          className="px-7 py-3 rounded-lg bg-[#44ACFF] text-[#091413] font-semibold hover:bg-[#5FB8FF] transition-colors"
+          className="px-7 py-3 rounded-lg bg-[#44ACFF] text-[#091413] font-semibold hover:bg-[#5FB8FF] transition-colors btn-press"
         >
           Run First Analysis
         </Link>
@@ -95,25 +101,47 @@ const Dashboard = () => {
     );
   }
 
+  // Also handle the case where user has no calculations yet
   const records = statsData.data.lastFive || [];
 
-  // ---- Chart data ----
-  const chartData = [...records]
-    .reverse()
-    .map((c) => ({
-      label: new Date(c.date).toLocaleDateString(undefined, {
-        month: "short",
-        day: "numeric",
-      }),
-      range: Number(c.finalRange?.toFixed(1)),
-      efficiency: EFFICIENCY_SCORE[c.efficiency] || 0, // Fixed: was "efficiencyScore" key mismatch
-      efficiencyLabel: c.efficiency,
-      drivingCondition: c.drivingCondition,             // Fixed: was c.DrivingCondition
-    }));
+  if (records.length === 0) {
+    return (
+      <div className="min-h-screen bg-[#091413] flex flex-col items-center justify-center gap-6 px-6 text-center">
+        <div className="w-16 h-16 rounded-full bg-[#44ACFF]/10 border border-[#44ACFF]/20 flex items-center justify-center text-2xl">
+          ⚡
+        </div>
+        <h2 className="font-bold text-2xl text-[#E8EDEC]">
+          No calculations yet
+        </h2>
+        <p className="text-gray-500 max-w-sm">
+          Hi {user?.name} — run your first battery analysis to start seeing
+          your performance data here.
+        </p>
+        <Link
+          to="/calculator"
+          className="px-7 py-3 rounded-lg bg-[#44ACFF] text-[#091413] font-semibold hover:bg-[#5FB8FF] transition-colors btn-press"
+        >
+          Run First Analysis
+        </Link>
+      </div>
+    );
+  }
 
-  // ---- Condition breakdown ----
+  // ── Chart data ──
+  const chartData = [...records].reverse().map((c) => ({
+    label: new Date(c.date).toLocaleDateString(undefined, {
+      month: "short",
+      day: "numeric",
+    }),
+    range: Number(c.finalRange?.toFixed(1)),
+    efficiency: EFFICIENCY_SCORE[c.efficiency] || 0,
+    efficiencyLabel: c.efficiency,
+    drivingCondition: c.drivingCondition,
+  }));
+
+  // ── Condition breakdown ──
   const conditionCounts = records.reduce((acc, c) => {
-    const key = c.drivingCondition || "unknown";        // Fixed: was c.DrivingCondition
+    const key = c.DrivingCondition || "unknown";
     acc[key] = (acc[key] || 0) + 1;
     return acc;
   }, {});
@@ -125,7 +153,7 @@ const Dashboard = () => {
     <div className="min-h-screen bg-[#091413] px-6 py-24 pt-32">
       <div className="max-w-5xl mx-auto flex flex-col gap-8">
 
-        {/* ── Header ── */}
+        {/* ── Header — no reveal, always visible on load ── */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div>
             <p className="text-[#44ACFF] font-semibold tracking-widest uppercase text-xs mb-1">
@@ -141,14 +169,17 @@ const Dashboard = () => {
           </div>
           <Link
             to="/calculator"
-            className="self-start sm:self-auto px-5 py-2.5 rounded-lg bg-[#44ACFF] text-[#091413] text-sm font-semibold hover:bg-[#5FB8FF] transition-colors whitespace-nowrap"
+            className="self-start sm:self-auto px-5 py-2.5 rounded-lg bg-[#44ACFF] text-[#091413] text-sm font-semibold hover:bg-[#5FB8FF] transition-colors whitespace-nowrap btn-press"
           >
             + New Analysis
           </Link>
         </div>
 
         {/* ── Stat Cards ── */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div
+          ref={statsRef}
+          className=" grid grid-cols-1 sm:grid-cols-3 gap-4"
+        >
           <StatCard
             label="Average Range"
             value={`${statsData.data.avgRange.toFixed(1)} km`}
@@ -172,8 +203,10 @@ const Dashboard = () => {
         </div>
 
         {/* ── Range History + Efficiency Trend ── */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-
+        <div
+          ref={chartsRef}
+          className="grid grid-cols-1 lg:grid-cols-2 gap-6"
+        >
           {/* Range History */}
           <div className="bg-[#0F1F1D] border border-white/10 rounded-xl p-6">
             <h3 className="text-lg font-bold text-[#E8EDEC] mb-6">
@@ -222,7 +255,7 @@ const Dashboard = () => {
                     stroke="#4b5563"
                     fontSize={11}
                     domain={[0, 3]}
-                    ticks={[1, 2, 3]}                  // Fixed: was tick={}
+                    ticks={[1, 2, 3]}
                     tickFormatter={(v) =>
                       ({ 1: "Low", 2: "Moderate", 3: "High" }[v] || "")
                     }
@@ -242,9 +275,9 @@ const Dashboard = () => {
                   />
                   <Line
                     type="monotone"
-                    dataKey="efficiency"                // Fixed: was "efficiencyScore"
+                    dataKey="efficiency"
                     name="Efficiency"
-                    stroke="#22c55e"                    // Fixed: was "##22c55e" double hash
+                    stroke="#22c55e"
                     strokeWidth={2}
                     dot={{ fill: "#22c55e", r: 3 }}
                     activeDot={{ r: 5 }}
@@ -256,8 +289,10 @@ const Dashboard = () => {
         </div>
 
         {/* ── Condition Breakdown + Range Comparison ── */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-
+        <div
+          ref={conditionRef}
+          className=" grid grid-cols-1 lg:grid-cols-2 gap-6"
+        >
           {/* Driving Condition Breakdown */}
           <div className="bg-[#0F1F1D] border border-white/10 rounded-xl p-6">
             <h3 className="text-lg font-bold text-[#E8EDEC] mb-6">
@@ -285,9 +320,7 @@ const Dashboard = () => {
                     ))}
                   </Pie>
                   <Tooltip content={<CustomTooltip />} />
-                  <Legend
-                    wrapperStyle={{ color: "#6b7280", fontSize: 12 }}
-                  />
+                  <Legend wrapperStyle={{ color: "#6b7280", fontSize: 12 }} />
                 </PieChart>
               </ResponsiveContainer>
             )}
@@ -315,8 +348,6 @@ const Dashboard = () => {
                     {chartData.map((entry, i) => (
                       <Cell
                         key={i}
-                        // Fixed: was EFFICIENCY_COLORS[entry.name] (date label)
-                        // now correctly uses efficiencyLabel
                         fill={
                           EFFICIENCY_COLORS[entry.efficiencyLabel] || "#44ACFF"
                         }
@@ -330,69 +361,71 @@ const Dashboard = () => {
         </div>
 
         {/* ── Recent Calculations Table ── */}
-        <div className="bg-[#0F1F1D] border border-white/10 rounded-xl p-6">
+        <div
+          ref={tableRef}
+          className=" bg-[#0F1F1D] border border-white/10 rounded-xl p-6"
+        >
           <h3 className="text-lg font-bold text-[#E8EDEC] mb-6">
             Recent Calculations
           </h3>
-          {records.length === 0 ? (
-            <p className="text-gray-500 text-sm">No calculations yet.</p>
-          ) : (
-            <div className="overflow-x-auto">
-              <table className="w-full text-left">
-                <thead>
-                  <tr className="border-b border-white/5">
-                    <th className="pb-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">
-                      Range
-                    </th>
-                    <th className="pb-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">
-                      Efficiency
-                    </th>
-                    <th className="pb-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">
-                      Condition
-                    </th>
-                    <th className="pb-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">
-                      Date
-                    </th>
+          <div className="overflow-x-auto">
+            <table className="w-full text-left">
+              <thead>
+                <tr className="border-b border-white/5">
+                  <th className="pb-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                    Range
+                  </th>
+                  <th className="pb-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                    Efficiency
+                  </th>
+                  <th className="pb-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                    Condition
+                  </th>
+                  <th className="pb-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                    Date
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {records.map((c, i) => (
+                  <tr
+                    key={i}
+                    className="border-b border-white/5 hover:bg-white/[0.02] transition-colors"
+                  >
+                    <td className="py-3 text-sm text-[#E8EDEC] font-medium">
+                      {c.finalRange.toFixed(1)} km
+                    </td>
+                    <td className="py-3">
+                      <span
+                        className={`text-xs px-2.5 py-1 rounded-full font-semibold ${
+                          c.efficiency === "High"
+                            ? "bg-green-600/15 text-green-400 border border-green-600/25"
+                            : c.efficiency === "Moderate"
+                            ? "bg-amber-600/15 text-amber-400 border border-amber-600/25"
+                            : "bg-red-600/15 text-red-400 border border-red-600/25"
+                        }`}
+                      >
+                        {c.efficiency}
+                      </span>
+                    </td>
+                    <td className="py-3 text-sm text-gray-400 capitalize">
+                      {c.drivingCondition}
+                    </td>
+                    <td className="py-3 text-sm text-gray-500">
+                      {new Date(c.date).toLocaleDateString()}
+                    </td>
                   </tr>
-                </thead>
-                <tbody>
-                  {records.map((c, i) => (
-                    <tr
-                      key={i}
-                      className="border-b border-white/5 hover:bg-white/[0.02] transition-colors"
-                    >
-                      <td className="py-3 text-sm text-[#E8EDEC] font-medium">
-                        {c.finalRange.toFixed(1)} km
-                      </td>
-                      <td className="py-3">
-                        <span
-                          className={`text-xs px-2.5 py-1 rounded-full font-semibold ${
-                            c.efficiency === "High"
-                              ? "bg-green-600/15 text-green-400 border border-green-600/25"
-                              : c.efficiency === "Moderate"
-                              ? "bg-amber-600/15 text-amber-400 border border-amber-600/25"
-                              : "bg-red-600/15 text-red-400 border border-red-600/25"
-                          }`}
-                        >
-                          {c.efficiency}
-                        </span>
-                      </td>
-                      <td className="py-3 text-sm text-gray-400 capitalize">
-                        {c.drivingCondition}  {/* Fixed: was c.DrivingCondition */}
-                      </td>
-                      <td className="py-3 text-sm text-gray-500">
-                        {new Date(c.date).toLocaleDateString()}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          )}
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
 
-        {/* ── CTA — Dashboard → Calculator flow ── */}
-        <div className="bg-[#0F1F1D] border border-white/10 rounded-xl p-8 flex flex-col sm:flex-row items-center justify-between gap-6">
+        {/* ── CTA ── */}
+        <div
+          ref={ctaRef}
+          className=" bg-[#0F1F1D] border border-white/10 rounded-xl p-8 flex flex-col sm:flex-row items-center justify-between gap-6"
+        >
           <div>
             <h3 className="font-bold text-lg text-[#E8EDEC] mb-1">
               Ready for another analysis?
@@ -403,7 +436,7 @@ const Dashboard = () => {
           </div>
           <Link
             to="/calculator"
-            className="whitespace-nowrap px-7 py-3 rounded-lg bg-[#44ACFF] text-[#091413] font-semibold hover:bg-[#5FB8FF] transition-colors"
+            className="whitespace-nowrap px-7 py-3 rounded-lg bg-[#44ACFF] text-[#091413] font-semibold hover:bg-[#5FB8FF] transition-colors btn-press"
           >
             Run New Analysis
           </Link>

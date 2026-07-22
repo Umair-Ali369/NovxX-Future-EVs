@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { FaChargingStation } from "react-icons/fa";
 import { GiCarBattery, GiArtificialIntelligence } from "react-icons/gi";
 import { FaRoute, FaChartLine, FaUser } from "react-icons/fa6";
+import useScrollReveal from "../hooks/useScrollReveal"
 
 const FEATURES = [
   {
@@ -47,10 +48,16 @@ const FEATURES = [
 ];
 
 const Features = () => {
+  const ref = useScrollReveal()
+  const ref1 = useScrollReveal()
+  const ref2 = useScrollReveal()
+  const ref3 = useScrollReveal()
+  const ref4 = useScrollReveal()
+  const ref5 = useScrollReveal()
   return (
     <div className="bg-[#091413] min-h-screen text-white">
       {/* HERO */}
-      <section className="relative flex flex-col items-center justify-center text-center px-6 py-40 pt-48 border-b border-white/5 overflow-hidden">
+      <section ref={ref} className="relative flex flex-col items-center justify-center text-center px-6 py-40 pt-48 border-b border-white/5 overflow-hidden">
         <div
           className="absolute inset-0 opacity-[0.05]"
           style={{
@@ -93,7 +100,7 @@ const Features = () => {
       </section>
 
       {/* FEATIRES CARDS GRID */}
-      <section className="py-24 px-6 border-b border-white/5">
+      <section ref={ref1} className="reveal py-24 px-6 border-b border-white/5">
         <div className="max-w-6xl mx-auto">
           <p className="text-[#44ACFF] font-semibold tracking-widest uppercase text-sm mb-3 text-center">
             {" "}
@@ -138,7 +145,7 @@ const Features = () => {
       {/* LIVE FEATURES DEEP DIVE */}
 
       {/* Battery Intelligence */}
-      <section className="bg-[#0F1F1D] py-24 px-6 border-b border-white/5">
+      <section ref={ref2} className="reveal bg-[#0F1F1D] py-24 px-6 border-b border-white/5">
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-16">
           <div className="w-full md:w-1/2 flex flex-col gap-5">
             <span className="inline-flex items-center gap-2 text-xs font-semibold text-green-400">
@@ -174,7 +181,7 @@ const Features = () => {
       </section>
 
       {/* Smart Driving */}
-      <section className="bg-[#0F1F1D] py-24 px-6 border-b border-white/5">
+      <section ref={ref3} className="reveal bg-[#0F1F1D] py-24 px-6 border-b border-white/5">
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row-reverse items-center gap-16">
           <div className="w-full md:w-1/2 flex flex-col gap-5">
             <span className="inline-flex items-center gap-2 text-xs font-semibold text-green-400">
@@ -211,7 +218,7 @@ const Features = () => {
       </section>
 
       {/* Coming soon Charging + Route */}
-      <section className="bg-[#0F1F1D] py-24 px-6 border-b border-white/5">
+      <section ref={ref4} className="reveal bg-[#0F1F1D] py-24 px-6 border-b border-white/5">
         <div className="max-w-6xl mx-auto">
           <p className="text-[#44ACFF] font-semibold tracking-widest uppercase text-sm mb-3 text-center">
             On the Roadmap
@@ -255,7 +262,7 @@ const Features = () => {
       </section>
 
       {/* CONNECTED EXPERIENCE + CTA */}
-      <section className="py-24 px-6 text-center">
+      <section ref={ref5} className="reveal py-24 px-6 text-center">
         <div className="max-w-2xl mx-auto flex flex-col items-center gap-6">
           <p className="text-[#44ACFF] font-semibold tracking-widest uppercase text-sm">
             One Platform
@@ -283,7 +290,7 @@ const Features = () => {
             </Link>
           </div>
         </div>
-      </section>
+      </section> 
     </div>
   );
 };

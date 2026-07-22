@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { btn, typography } from "../theme";
 
 const Footer = () => {
   return (
@@ -8,8 +9,8 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
           {/* Brand */}
           <div className="md:col-span-2 flex flex-col gap-3">
-            <h2 className="font-bold text-xl text-[#E8EDEC]">NovxX</h2>
-            <p className="text-gray-500 text-sm max-w-sm leading-relaxed">
+            <h4 className={typography.h4}>NovxX</h4>
+            <p className={`${typography.bodySmall} max-w-sm`}>
               Intelligent EV platform for smarter mobility. Built for the
               future of electric vehicle systems in emerging markets.
             </p>

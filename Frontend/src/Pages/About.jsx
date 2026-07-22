@@ -2,12 +2,23 @@ import React from "react";
 import mission from "../assets/images/our-vission.png";
 import future from "../assets/images/future.png";
 import { Link } from "react-router-dom";
+import useScrollReveal from "../hooks/useScrollReveal";
+import { badge, btn, typography, card } from "../theme";
 
 const About = () => {
+  const ref = useScrollReveal();
+  const ref1 = useScrollReveal();
+  const ref2 = useScrollReveal();
+  const ref3 = useScrollReveal();
+  const ref4 = useScrollReveal();
+  const ref5 = useScrollReveal();
   return (
     <div className="bg-[#091413] min-h-screen text-white">
       {/* hero  */}
-      <section className="relative flex flex-col items-center justify-center text-center px-6 py-40 pt-48 border-b border-white/5 overflow-hidden">
+      <section
+        ref={ref}
+        className="relative flex flex-col items-center justify-center text-center px-6 py-40 pt-48 border-b border-white/5 overflow-hidden"
+      >
         <div
           className="absolute inset-0 opacity-[0.05]"
           style={{
@@ -19,23 +30,23 @@ const About = () => {
         <div className="absolute -top-40 -right-40 w-[500px] h-[500px] bg-[#44ACFF]/8 rounded-full blur-3xl pointer-events-none" />
 
         <div className="relative z-10 max-w-3xl flex flex-col items-center gap-6">
-          <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#44ACFF]/30 bg-[#44ACFF]/5 text-[#44ACFF] text-xs font-semibold tracking-widest uppercase">
+          <span className={badge.pill}>
             <span className="w-1.5 h-1.5 rounded-full bg-[#44ACFF] animate-pulse" />
             Our Story
           </span>
-          <h1 className="font-bold text-4xl md:text-6xl text-[#E8EDEC] leading-tight">
+          <h1 className={typography.h1}>
             Building the Future of
             <br />
             Electric Mobility
           </h1>
-          <p className="text-lg text-gray-400 max-w-2xl leading-relaxed">
+          <p className={typography.body}>
             NovxX is creating smart, affordable, and sustainable electric
             vehicle for the next generation - starting with intelligence
             platform that will power them.
           </p>
           <Link
             to="/register"
-            className="px-7 py-3.5 rounded-lg bg-[#44ACFF] text-[#091413] font-semibold hover:bg-[#5FB8FF] transition-colors"
+            className={btn.primary}
           >
             Join the Future
           </Link>
@@ -43,17 +54,17 @@ const About = () => {
       </section>
 
       {/* problems -> solutions */}
-      <section className="py-24 px-6 border-b border-white/5">
+      <section ref={ref1} className="reveal py-24 px-6 border-b border-white/5">
         <div className="max-w-6xl mx-auto">
-          <p className="text-[#44ACFF] font-semibold tracking-widest uppercase text-sm mb-3 text-center">
+          <p className={typography.eyeBrow}>
             Why We Exist
           </p>
-          <h2 className="font-bold text-3xl md:text-4xl text-[#E8EDEC] text-center mb-16">
+          <h2 className={typography.h2}>
             A Real Problem - A Focused Solution
           </h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="bg-[#0F1F1D] border border-white/10 rounded-xl p-8 flex flex-col gap-4 hover:border-[#44ACFF]/40 transition-colors">
+          <div className=" grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className={`${card.paddedHover} flex flex-col gap-4 card-lift`}>
               <span className="text-3xl">⚠️</span>
               <h3 className="font-bold text-xl text-[#E8EDEC]"> The Problem</h3>
               <p className="text-gray-400 leading-relaxed">
@@ -64,7 +75,7 @@ const About = () => {
               </p>
             </div>
 
-            <div className="bg-[#0F1F1D] border border-white/10 rounded-xl p-8 flex flex-col gap-4 hover:border-[#44ACFF]/40 transition-colors">
+            <div className={`${card.paddedHover} card-lift flex flex-col gap-4`}>
               <span className="text-3xl"> ⚡ </span>
               <h3 className="font-bold text-xl text-[#E8EDEC]">
                 {" "}
@@ -81,9 +92,12 @@ const About = () => {
       </section>
 
       {/* my story */}
-      <section className="bg-[#0F1F1D] py-24 px-6 border-b border-white/5">
+      <section
+        ref={ref2}
+        className="reveal bg-[#0F1F1D] py-24 px-6 border-b border-white/5"
+      >
         <div className="max-w-4xl mx-auto flex flex-col gap-6">
-          <p className="text-[#44ACFF] font-semibold tracking-widest uppercase text-sm">
+          <p className={"text-[#44ACFF] font-semibold tracking-widest uppercase text-sm"}>
             The Founder
           </p>
           <h2 className="font-bold text-3xl md:text-4xl text-[#E8EDEC]">
@@ -142,10 +156,10 @@ const About = () => {
       </section>
 
       {/* mission */}
-      <section className="py-24 px-6 border-b border-white/5">
+      <section ref={ref3} className="reveal py-24 px-6 border-b border-white/5">
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-16">
           <div className="w-full md:w-1/2 flex flex-col gap-6">
-            <p className="text-[#44ACFF] font-semibold tracking-widest uppercase text-sm">
+            <p className={"text-[#44ACFF] font-semibold tracking-widest uppercase text-sm"}>
               {" "}
               Our Mission{" "}
             </p>
@@ -183,7 +197,10 @@ const About = () => {
       </section>
 
       {/* future direction */}
-      <section className="bg-[#0F1F1D] py-24 px-6 border-b border-white/5">
+      <section
+        ref={ref4}
+        className=" revealbg-[#0F1F1D] py-24 px-6 border-b border-white/5"
+      >
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row-reverse items-center gap-16">
           <div className="w-full md:w-1/2 flex flex-col gap-6">
             <p className="text-[#44ACFF] font-semibold tracking-widest uppercase text-sm">
@@ -218,7 +235,7 @@ const About = () => {
       </section>
 
       {/* cta */}
-      <section className="py-24 px-6 text-center">
+      <section ref={ref5} className="reveal py-24 px-6 text-center">
         <div className="max-w-2xl mx-auto flex flex-col items-center gap-6">
           <h2 className="font-bold text-3xl md:text-4xl text-[#E8EDEC]">
             Join us as we build
@@ -226,16 +243,16 @@ const About = () => {
             the future of mobility
           </h2>
           <p className="text-gray-400"> Be part of journey from beginning </p>
-          <div className="flex flex-col sm:flex-row gap-4">
+          <div className={"flex flex-col sm:flex-row gap-4"}>
             <Link
               to="/register"
-              className="px-8 py-3.5 rounded-lg bg-[#44ACFF] text-[#091413] font-semibold hover:bg-[#5FB8FF] transition-colors"
+              className="btn-press px-8 py-3.5 rounded-lg bg-[#44ACFF] text-[#091413] font-semibold hover:bg-[#5FB8FF] transition-colors"
             >
               Join Us
             </Link>
             <Link
               to="/concept"
-              className="px-8 py-3.5 rounded-lg border border-white/15 text-[#E8EDEC] font-semibold hover:border-[#44ACFF]/50 hover:bg-white/5 transition-colors"
+              className={`${btn.ghost} btn-press`}
             >
               See the Vision
             </Link>

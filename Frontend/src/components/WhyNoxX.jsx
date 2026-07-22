@@ -1,4 +1,6 @@
 import React from "react";
+import { card, section, typography, divider, spacing } from "../theme";
+import useScrollReveal from "../hooks/useScrollReveal";
 
 const REASONS = [
   {
@@ -19,21 +21,21 @@ const REASONS = [
 ];
 
 const WhyNoxX = () => {
+  const ref = useScrollReveal();
+  const cardsref = useScrollReveal();
   return (
-    <section className="bg-[#091413] py-24 px-6 border-t border-white/5">
+    <section
+      ref={ref}
+      className={`reveal ${section.surface} ${spacing.section} ${divider.subtle}`}
+    >
       <div className="max-w-6xl mx-auto">
-        <p className="text-[#44ACFF] font-semibold tracking-widest uppercase text-sm mb-3 text-center">
-          {" "}
-          Why NovxX{" "}
-        </p>
-        <h2 className="font-bold text-3xl md:text-5xl text-[#E8EDEC] text-center mb-16">
-          Build different, by design
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <p className={typography.eyeBrow}> Why NovxX </p>
+        <h2 className={typography.h2}>Build different, by design</h2>
+        <div ref={cardsref} className="reveal-child grid grid-cols-1 md:grid-cols-3 gap-6">
           {REASONS.map((r) => (
             <div
               key={r.num}
-              className="bg-[#0F1F1D] border border-white/10 rounded-xl p-8 flex flex-col gap-3 hover:border-[#44ACFF]/40 transition-colors"
+              className={`${card.paddedHover} card-lift flex flex-col gap-3`}
             >
               <span className="text-[#44ACFF]/50 font-bold text-sm tracking-widest">
                 {" "}

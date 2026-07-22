@@ -1,10 +1,14 @@
 import { useState } from "react";
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { btn, typography } from "../theme";
+import useScrollReveal from "../hooks/useScrollReveal";
 
 const Try = () => {
   const [showMsg, setShowMsg] = useState(false);
   const navigate = useNavigate();
+
+  const ref = useScrollReveal()
   
   const check = () => {
     const token = localStorage.getItem("token");
@@ -17,21 +21,23 @@ const Try = () => {
     }
   };
   return (
-    <section className="bg-[#0F1F1D] py-24 px-6 border-t border-white/5">
+    <section 
+    ref={ref}
+    className="reveal bg-[#0F1F1D] py-24 px-6 border-t border-white/5">
       <div className="max-w-3xl mx-auto flex flex-col items-center text-center gap-6">
-        <p className="text-[#44ACFF] font-semibold tracking-widest uppercase text-sm">
+        <p className={typography.eyeBrow}>
           Try It Live
         </p>
-        <h2 className="font-bold text-3xl md:text-5xl text-[#E8EDEC]">
+        <h2 className={typography.h2}>
           Try battery range estimation
         </h2>
-        <p className="text-lg text-gray-400 max-w-xl">
+        <p className={typography.body}>
           Plan every trip with confidence. Estimate your EV range and optimize
           your journey smarter.
         </p>
         <button
           onClick={check}
-          className="px-8 py-3.5 rounded-lg bg-[#44ACFF] text-[#091413] font-semibold hover:bg-[#5FB8FF] transition-colors"
+          className={btn.primary}
         >
           Try Now
         </button>

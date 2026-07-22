@@ -13,11 +13,11 @@ export const DashboardProvider = ({ children }) => {
     const fetchDashboardData = async () => {
       if (!token) return;
       try {
-        const data = await API.get("/dashboard", {
+        const {data} = await API.get("/dashboard", {
           headers: { Authorization: `Bearer ${token}` },
         });
         setStatsData(data);
-        console.log(data)
+       
       } catch (error) {
         console.error("Dashboard fetch failed", error);
       } finally {

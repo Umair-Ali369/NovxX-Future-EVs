@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { use, useState } from "react";
 import { Link } from "react-router-dom";
 import { useCalculator } from "../context/CalculatorContext";
+import useScrollReveal from "../hooks/useScrollReveal";
 
 // Keywords
 const TREND_KEYWORDS = [
@@ -64,6 +65,10 @@ const Calculator = () => {
   const [vehicleLoad, setVehicleLoad] = useState("");
   const [terrainType, setTerrainType] = useState("");
 
+  const ref = useScrollReveal();
+  const ref1 = useScrollReveal();
+  const ref2 = useScrollReveal();
+
   const [error, setError] = useState("");
 
   const { calculate, loading, EVresult, setEVResult } = useCalculator();
@@ -119,7 +124,7 @@ const Calculator = () => {
   const smartInsights = allInsights.filter((msg) => isTrendInsight(msg));
 
   return (
-    <section className="bg-[#091413] min-h-screen px-6 py-24 pt-36">
+    <section ref={ref} className="bg-[#091413] min-h-screen px-6 py-24 pt-36">
       <div className="max-w-6xl mx-auto">
         {/* Page Header */}
         <div className="flex flex-col items-center text-center mb-12">
@@ -140,7 +145,7 @@ const Calculator = () => {
         {/* Two Column Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* LEFT input form */}
-          <div className="bg-[#0F1F1D] border border-white/10 rounded-2xl p-8 flex flex-col gap-8">
+          <div ref={ref1} className=" bg-[#0F1F1D] border border-white/10 rounded-2xl p-8 flex flex-col gap-8">
             {/* Group 1 Battery */}
             <div className="flex flex-col gap-4">
               <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-widest border-b border-white/5 pb-2">
@@ -315,7 +320,7 @@ const Calculator = () => {
           </div>
 
           {/* RIGHT Result Panel */}
-          <div className="bg-[#0F1F1D] border border-white/10 rounded-2xl p-8 flex flex-col gap-6">
+          <div ref={ref2} className=" bg-[#0F1F1D] border border-white/10 rounded-2xl p-8 flex flex-col gap-6">
             {!EVresult ? (
               <div className="flex-1 flex flex-col items-center justify-center text-center gap-4 py-20">
                 <div className="w-16 h-16 rounded-full bg-[#44ACFF]/10 border border-[#44ACFF]/20 flex items-center justify-center text-2xl">
@@ -333,16 +338,20 @@ const Calculator = () => {
               </div>
             ) : (
               <>
-                 <div className="flex items-center justify-between">
-                 <h2 className="font-bold text-xl text-[#E8EDEC]"> Analysis Result </h2>
-                 <span className="text-xs text-green-400 bg-green-400/10 border border-green-400/20 px-2.5 py-1 rounded-full">
-                 ✓ Complete</span>
+                <div className="flex items-center justify-between">
+                  <h2 className="font-bold text-xl text-[#E8EDEC]">
+                    {" "}
+                    Analysis Result{" "}
+                  </h2>
+                  <span className="text-xs text-green-400 bg-green-400/10 border border-green-400/20 px-2.5 py-1 rounded-full">
+                    ✓ Complete
+                  </span>
                 </div>
 
                 {/* stat cards */}
                 <div>
                   <StatsCard
-                    label="Estimaated Range"
+                    label="Estimated Range"
                     value={`${EVresult.data.range} km`}
                   />
                   <StatsCard

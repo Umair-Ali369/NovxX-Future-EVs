@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { IoMenu, IoClose } from "react-icons/io5";
 import { useAuth } from "../context/AuthContext";
 import mylogo from "../assets/images/mylogo.png";
+import { btn } from "../theme"
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -58,7 +59,7 @@ const Navbar = () => {
             <>
               <Link
                 to="/register"
-                className="px-4 py-2 rounded-lg bg-[#44ACFF] text-[#091413] text-sm font-semibold hover:bg-[#5FB8FF] transition-colors"
+                className={btn.primarySm}
               >
                 Get Started
               </Link>
@@ -90,8 +91,7 @@ const Navbar = () => {
               </Link>
               <button
                 onClick={logOut}
-                className="px-3 py-1.5 rounded-lg border border-white/10 text-gray-400 text-sm font-medium hover:border-red-400/50 hover:text-red-400 transition-colors"
-              >
+                className={btn.danger}>
                 Logout
               </button>
             </>

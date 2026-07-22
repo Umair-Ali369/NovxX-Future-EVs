@@ -1,5 +1,7 @@
 import React from 'react'
 import { Link } from "react-router-dom"
+import { btn } from '../theme'
+import useScrollReveal from '../hooks/useScrollReveal'
 
 const PILLARS = [
     { icon : "💻", label : "Software First EV"},
@@ -8,8 +10,12 @@ const PILLARS = [
     { icon : "🌍", label : "Build For Emerging Market"},
 ]
 const VehicleVision = () => {
+    const ref = useScrollReveal()
+    const cardsref = useScrollReveal()
   return (
-    <section className="bg-[#091413] py-24 px-6 border-t border-white/5">
+    <section 
+    ref={ref}
+    className="reveal bg-[#091413] py-24 px-6 border-t border-white/5">
         <div className="max-w-6xl mx-auto flex flex-col lg:flex-row items-center gap-16">
             <div className="w-full lg:w-1/2 bg-[#0F1F1D] border border-white/10 rounded-2xl h-72 flex flex-col items-center justify-center gap-3">
                 <span className="text-6xl">
@@ -35,11 +41,11 @@ const VehicleVision = () => {
                     toward a physical vehicle designed for emerging markets.
                 </p>
 
-                <div className="grid grid-cols-2 gap-3">
+                <div ref={cardsref} className="reveal-child grid grid-cols-2 gap-3">
                     {PILLARS.map((p) => (
                         <div
                         key={p.label}
-                         className="flex items-center gap-3 bg-[#0F1F1D] border border-white/10 rounded-lg px-4 py-3"
+                         className="card-lift flex items-center gap-3 bg-[#0F1F1D] border border-white/10 rounded-lg px-4 py-3"
                         >
                             <span className='text-xl'> {p.icon} </span>
                             <p className="text-sm text-gray-300 font-medium"> {p.label} </p>
@@ -50,7 +56,7 @@ const VehicleVision = () => {
 
                 <Link
                 to="/concept"
-                className="inline-flex items-center gap-2 text-[#44ACFF] font-semibold text-sm hover:gap-3 transition-all"
+                className={`${btn.link} btn-press`}
                 >
                     Explore the Concept Vehicle 
                 </Link>

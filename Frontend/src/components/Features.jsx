@@ -4,6 +4,8 @@ import { GiCarBattery } from "react-icons/gi";
 import { GiArtificialIntelligence } from "react-icons/gi";
 import { FaRoute } from "react-icons/fa6";
 import { Link } from "react-router-dom";
+import { btn, card, typography } from "../theme";
+import useScrollReveal from "../hooks/useScrollReveal"
 
 const FEATURES = [
   {
@@ -29,25 +31,29 @@ const FEATURES = [
 ]
 
 const Features = () => {
+  const ref = useScrollReveal()
+  const cardsref = useScrollReveal()
   return (
-    <section className="bg-[#091413] py-24 px-6 border-t border-white/5">
+    <section 
+    ref={ref}
+    className="reveal bg-[#091413] py-24 px-6 border-t border-white/5">
       <div className="max-w-6xl mx-auto flex flex-col items-center">
-        <p className="text-[#44ACFF] font-semibold tracking-widest uppercase text-sm mb-3 text-center"> The Platform </p>
-        <h2 className="font-bold text-3xl md:text-5xl text-[#E8EDEC] text-center mb-4 max-w-3xl"> 
+        <p className={typography.eyeBrow}> The Platform </p>
+        <h2 className={typography.h2}> 
           Smart features for the future of driving
         </h2>
-        <p className="text-lg text-gray-400 text-center max-w-2xl mb-16">
+        <p className={`${typography.body} mb-6`}>
           Powerful tools designed to make your electric driving smarter, easier and more connected
         </p>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
+        <div ref={cardsref}  className="reveal-child grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
           {FEATURES.map((f) => (
             <div
             key={f.title}
-            className="bg-[#0F1F1D] border border-white/10 rounded-xl p-8 flex flex-col gap-4 hover:border-[#44ACFF]/40 transition-colors"
+            className={`${card.paddedHover} card-lift flex flex-col gap-4`}
             >
               <f.icon size={40} className="text-[#44ACFF]"/>
-              <h3 className="font-bold text-xl text-[#E8EDEC]"> {f.title} </h3>
+              <h4 className="font-bold text-xl text-[#E8EDEC]"> {f.title} </h4>
               <p className="text-gray-400 leading-relaxed">  {f.desc} </p> 
             </div>
           ))}
@@ -55,7 +61,7 @@ const Features = () => {
 
         <Link
         to="/features"
-        className="mt-12 px-8 py-3 rounded-lg border border-white/15 text-[#E8EDEC] font-semibold hover:border-[#44ACFF]/50 hover:bg-white/5 transition-colors"
+        className={`${btn.ghost} btn-press`}
         >
           Explore More
         </Link>

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
+import useScrollReveal from "../hooks/useScrollReveal"
 
 const VEHICLE_TYPES = [
   { value: "compact_ev", label: "Compact EV", icon: "⚡" },
@@ -10,6 +11,7 @@ const VEHICLE_TYPES = [
 ];
 
 const Profile = () => {
+  const ref = useScrollReveal()
   const { user, updateProfile } = useAuth();
 
   const [selectedVehicle, setSelectedVehicle] = useState("");
@@ -20,6 +22,7 @@ const Profile = () => {
   const [loading, setLoading] = useState(false);
   const [saved, setSaved] = useState(false);
   const [error, setError] = useState("");
+
 
   useEffect(() => {
     if (user) {
@@ -52,7 +55,7 @@ const Profile = () => {
     // else setError("Something went wrong. Please try again.");
   };
   return (
-    <div className="min-h-screen bg-gray-900 flex flex-col items-center py-24 pt-32 px-6">
+    <div ref={ref} className="min-h-screen bg-gray-900 flex flex-col items-center py-24 pt-32 px-6">
       <div className="w-full max-w-2xl">
         <h1 className="text-4xl font-bold text-white mb-2"> Your Profile </h1>
         <p className="text-gray-400 mb-8">

@@ -1,11 +1,22 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import useScrollReveal from "../hooks/useScrollReveal"
 
 const ConceptVehicle = () => {
+
+  const ref = useScrollReveal()
+  const ref1 = useScrollReveal()
+  const ref2 = useScrollReveal()
+  const ref3 = useScrollReveal()
+  const ref4 = useScrollReveal()
+  const ref5 = useScrollReveal()
+  const ref6 = useScrollReveal()
+
+
   return (
     <div className="bg-[#091413] min-h-screen text-white">
       {/* Hero Section */}
-      <section className="flex flex-col items-center justify-center text-center px-6 py-40 pt-48 border-b border-gray-800">
+      <section ref={ref} className="flex flex-col items-center justify-center text-center px-6 py-40 pt-48 border-b border-gray-800">
         <p className="text-[#44ACFF] font-semibold tracking-widest uppercase text-sm mb-4">
           {" "}
           NovxX Concept Vehicle{" "}
@@ -28,7 +39,7 @@ const ConceptVehicle = () => {
       </section>
 
       {/* Philosphy section */}
-      <section className="max-w-6xl mx-auto px-6 py-24">
+      <section ref={ref1} className="reveal max-w-6xl mx-auto px-6 py-24">
         <p className="text-[#44ACFF] font-semibold tracking-widest uppercase text-sm mb-3 text-center">
           {" "}
           Our Philosphy{" "}
@@ -85,7 +96,7 @@ const ConceptVehicle = () => {
       </section>
 
       {/* Cokpit Version */}
-      <section className="border-t border-gray-800 py-24 px-6">
+      <section ref={ref2} className="reveal border-t border-gray-800 py-24 px-6">
         <div className="max-w-6xl mx-auto flex flex-col lg:flex-row items-center gap-16">
           {/* visual paceholder */}
           <div className="w-full lg:w-1/2 bg-gray-900 border border-gray-800 rounded-2xl h-72 flex flex-col items-center justify-center gap-4">
@@ -132,7 +143,7 @@ const ConceptVehicle = () => {
       </section>
 
       {/* Battery Intelligence */}
-      <section className="border-t border-gray-800 py-24 px-6 bg-gray-900/40">
+      <section ref={ref3} className="reveal border-t border-gray-800 py-24 px-6 bg-gray-900/40">
         <div className="max-w-6xl mx-auto flex flex-col lg:flex-row-reverse items-center gap-16">
           {/* visual placeholder */}
           <div className="w-full lg:w-1/2 bg-gray-900 border border-gray-800 rounded-2xl h-72 flex flex-col items-center justify-center gap-4">
@@ -180,7 +191,7 @@ const ConceptVehicle = () => {
       </section>
 
       {/* Future Mobility */}
-      <section className="border-t border-gray-800 py-24 px-6">
+      <section ref={ref4} className=" reveal border-t border-gray-800 py-24 px-6">
         <div className="max-w-6xl mx-auto flex flex-col lg:flex-row items-center gap-16">
           <div className="w-full lg:w-1/2 bg-gray-900 border border-gray-800 rounded-2xl h-72 flex flex-col items-center justify-center gap-4">
             <span className="text-7xl">🛣️</span>
@@ -224,7 +235,7 @@ const ConceptVehicle = () => {
       </section>
 
       {/* Timeline / Roadmap */}
-      <section className="border-t border-gray-800 py-24 px-6 bg-gray-900/40">
+      <section ref={ref5} className="reveal border-t border-gray-800 py-24 px-6 bg-gray-900/40">
         <div className="max-w-4xl mx-auto text-center">
           <p className="text-[#44ACFF] font-semibold tracking-widest uppercase text-sm mb-3">
             The Journey
@@ -300,7 +311,7 @@ const ConceptVehicle = () => {
       </section>
 
       {/* CTA */}
-      <section className="border-t border-gray-800 py-24 px-6 text-center">
+      <section ref={ref6} className="reveal border-t border-gray-800 py-24 px-6 text-center">
         <h2 className="text-3xl md:text-4xl font-bold mb-4">
           Be Part of What We Are Building
         </h2>

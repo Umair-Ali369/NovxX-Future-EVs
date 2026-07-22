@@ -22,16 +22,41 @@ const calculatorSchema = mongoose.Schema({
   passengers: {
     type: Number,
   },
+  battery_size : {
+    type : Number
+  }, 
+  temperature : {
+    type : Number
+  }, 
+  vehicle_load : {
+    type : Number
+  }, 
+  driving_style : {
+    type : String
+  }, 
+  terrain_type : {
+    type : String
+  },
   finalRange: {
     type: Number,
   },
-  effciciency: {
+  efficiency: {
     type: String,
+  }, 
+  energyConsumption : {
+    type : Number
+  }, 
+  batteryStress : {
+    type : String
   },
   date: {
     type: Date,
     default: Date.now,
   },
+  vehicleType: {
+    type: String,
+    default: null,
+  }
 });
 
 module.exports = mongoose.model("Calculator", calculatorSchema);

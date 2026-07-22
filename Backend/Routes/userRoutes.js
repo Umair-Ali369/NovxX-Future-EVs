@@ -2,8 +2,7 @@ const express = require("express");
 const { registerUser, loginUser, dashboard } = require("../Controller/userController");
 const protect = require("../MIddlewares/authMiddleware");
 const { evCalculator } = require("../Controller/calculatorController");
-const { getProfile } = require("../Controller/profileController")
-const {updateProfile}  = require("../Controller/profileController")
+const { getProfile, updateProfile } = require("../Controller/profileController");
 
 const Router = express.Router();
 
@@ -15,11 +14,8 @@ Router.post("/user/login", loginUser)
 Router.post("/calculator", protect, evCalculator)
 Router.get("/dashboard", protect, dashboard)
 
-
 // Profile Routes 
 Router.get("/profile", protect, getProfile)
 Router.put("/profile", protect, updateProfile)
-
-
 
 module.exports = Router

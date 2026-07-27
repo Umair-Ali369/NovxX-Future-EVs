@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
 const VEHICLE_TYPES = [
@@ -47,7 +47,7 @@ const VehicleSetup = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  const handleSubnit = async () => {
+  const handleSubmit = async () => {
     if (!selectedVehicle) {
       setError("Please Select the vehicle type.");
       return;
@@ -73,123 +73,148 @@ const VehicleSetup = () => {
   };
 
   return (
-    <section className="min-h-screen bg-gray-900 flex flex-col items-center py-24 pt-32 px-6">
-      <div lassName="w-full max-w-2xl bg-gray-800 rounded-lg shadow-md p-8">
-        <div className="text-center mb-8">
-          <h1 className="font-bold text-3xl md:text-4xl text-white mb-2">
-            Set Up Your Vehicle
+    <section className="min-h-screen bg-[#091413] flex items-center justify-center px-6 py-16">
+    {/* Ambient glow */}
+    <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-[#44ACFF]/5 rounded-full blur-3xl pointer-events-none" />
+
+    <div className="relative w-full max-w-2xl">
+      {/* Header */}
+      <div className="text-center mb-8">
+        <Link to="/">
+          <h1 className="font-bold text-xl text-[#E8EDEC] tracking-tight mb-6">
+            NovxX
           </h1>
-          <p className="text-gray-400">
-            {" "}
-            Help us personalize your calculaor. You can always update this
-            later.
+        </Link>
+        <h2 className="font-bold text-3xl md:text-4xl text-[#E8EDEC] mb-2">
+          Set Up Your Vehicle
+        </h2>
+        <p className="text-gray-400">
+          Help us personalize your calculator. You can always update this
+          later from your profile.
+        </p>
+      </div>
+
+      {/* Vehicle Type Cards */}
+      <div className="bg-[#0F1F1D] border border-white/10 rounded-xl p-6 mb-4">
+        <h2 className="text-lg font-bold text-[#E8EDEC] mb-4">
+          * Select Vehicle Type
+        </h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          {VEHICLE_TYPES.map((v) => (
+            <button
+              key={v.value}
+              onClick={() => setSelectedVehicle(v.value)}
+              className={`flex items-start gap-3 p-4 rounded-lg border-2 text-left transition-colors ${
+                selectedVehicle === v.value
+                  ? "border-[#44ACFF] bg-[#44ACFF]/10"
+                  : "border-white/10 bg-[#091413] hover:border-white/25"
+              }`}
+            >
+              <span className="text-2xl mt-0.5">{v.icon}</span>
+              <div>
+                <p className="font-semibold text-[#E8EDEC] text-sm">
+                  {v.label}
+                </p>
+                <p className="text-gray-500 text-xs mt-0.5">{v.desc}</p>
+              </div>
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Vehicle Name */}
+      <div className="bg-[#0F1F1D] border border-white/10 rounded-xl p-6 mb-4 flex flex-col gap-3">
+        <div>
+          <h2 className="text-lg font-bold text-[#E8EDEC]">Vehicle Name</h2>
+          <p className="text-gray-500 text-sm mt-0.5">
+            Optional — e.g. "Tesla Model 3"
           </p>
         </div>
+        <input
+          type="text"
+          placeholder="Enter your vehicle name..."
+          className="w-full p-3 rounded-lg bg-[#091413] border border-white/10 text-[#E8EDEC] placeholder-gray-600 focus:outline-none focus:border-[#44ACFF]/50 transition-colors"
+          value={vehicleName}
+          onChange={(e) => setVehicleName(e.target.value)}
+        />
+      </div>
 
-        {/* Vehicle Type Cards */}
-        <div className="mb-6">
-          <h2 className="font-semibold text-white text-lg block mb-3">
-            {" "}
-            Vehicle Type{" "}
-          </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            {VEHICLE_TYPES.map((v) => (
-              <button
-                key={v.value}
-                onClick={() => setSelectedVehicle(v.value)}
-                className={`flex items-center gap-3 p-4 rounded-lg border-2 text-left transition
-                        ${
-                          selectedVehicle === v.value
-                            ? "border-blue-500 bg-blue-500/10"
-                            : "border-gray-600 bg-gray-700 hover:border-gray-400"
-                        }`}
-              >
-                <span className="text-2xl"> {v.icon} </span>
-                <p className="font-semibold text-white"> {v.label} </p>
-              </button>
-            ))}
-          </div>
-        </div>
-
-        {/* Vehicle Name */}
-        <div className="mb-6 flex flex-col gap-2">
-          <h2 className="text-xl font-semibold text-white">
-            Vehicle Name
-            <br />
-            <span className="text-gray-400 font-normal text-sm">
-              (optional — e.g. "Tesla Model 3")
-            </span>
-          </h2>
-          <input
-            type="text"
-            placeholder="Enter your vehicle name..."
-            className="w-full p-3 rounded bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-            value={vehicleName}
-            onChange={(e) => setVehicleName(e.target.value)}
-          />
-        </div>
-
-        {/*  Preferred Driving Style */}
-        <div className="mb-6 flex flex-col gap-2">
-          <label className="text-white text-lg font-semibold">
+      {/* Preferred Driving Style */}
+      <div className="bg-[#0F1F1D] border border-white/10 rounded-xl p-6 mb-4 flex flex-col gap-3">
+        <div>
+          <label className="text-lg font-bold text-[#E8EDEC]">
             Preferred Driving Style
-            <br />
-            <span className="text-gray-400 font-normal text-sm">
-              (optional — pre-fills your calculator)
-            </span>
           </label>
-          <select
-            className="w-full p-3 rounded bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-            value={preferredDrivingStyle}
-            onChange={(e) => setPreferredDrivingStyle(e.target.value)}
-          >
-            <option value=""> Not set </option>
-            <option value="eco"> Eco </option>
-            <option value="normal"> Normal </option>
-            <option value="aggressive"> Aggressive </option>
-          </select>
+          <p className="text-gray-500 text-sm mt-0.5">
+            Optional — pre-fills your calculator
+          </p>
         </div>
-        {/*  Preferred Driving Condtion */}
-        <div className="mb-6 flex flex-col gap-2">
-          <label className="text-white font-semibold">
-            Preferred Driving Condition
-            <br />
-            <span className="text-gray-400 font-normal text-sm">
-              (optional — pre-fills your calculator)
-            </span>
-          </label>
-          <select
-            value={preferredDrivingCondition}
-            className="w-full p-3 rounded bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-            onChange={(e) => setPreferredDrivingCondition(e.target.value)}
-          >
-            <option value=""> Not set </option>
-            <option value="city"> City </option>
-            <option value="highway"> Highway </option>
-            <option value="mixed"> Mixed </option>
-          </select>
-        </div>
-
-        {error && (
-          <p className="text-red-400 text center text-sm mb-4"> {error} </p>
-        )}
-
-        <button
-          onClick={handleSubnit}
-          disabled={loading}
-          className="w-full bg-blue-500 hover:bg-blue-600 disabled:opacity-60 text-white font-semibold py-3 rounded transition"
+        <select
+          className="w-full p-3 rounded-lg bg-[#091413] border border-white/10 text-[#E8EDEC] focus:outline-none focus:border-[#44ACFF]/50 transition-colors"
+          value={preferredDrivingStyle}
+          onChange={(e) => setPreferredDrivingStyle(e.target.value)}
         >
-          {loading ? "Saving...." : "Save & Go to Dashboard"}
-        </button>
+          <option value="">Not set</option>
+          <option value="eco">Eco</option>
+          <option value="normal">Normal</option>
+          <option value="aggressive">Aggressive</option>
+        </select>
+      </div>
 
+      {/* Preferred Driving Condition */}
+      <div className="bg-[#0F1F1D] border border-white/10 rounded-xl p-6 mb-4 flex flex-col gap-3">
+        <div>
+          <label className="text-lg font-bold text-[#E8EDEC]">
+            Preferred Driving Condition
+          </label>
+          <p className="text-gray-500 text-sm mt-0.5">
+            Optional — pre-fills your calculator
+          </p>
+        </div>
+        <select
+          className="w-full p-3 rounded-lg bg-[#091413] border border-white/10 text-[#E8EDEC] focus:outline-none focus:border-[#44ACFF]/50 transition-colors"
+          value={preferredDrivingCondition}
+          onChange={(e) => setPreferredDrivingCondition(e.target.value)}
+        >
+          <option value="">Not set</option>
+          <option value="city">City</option>
+          <option value="highway">Highway</option>
+          <option value="mixed">Mixed</option>
+        </select>
+      </div>
+
+      {/* Error message */}
+      {error && (
+        <div className="bg-red-500/10 border border-red-500/20 rounded-lg px-4 py-3 mb-4">
+          <p className="text-red-400 text-sm">{error}</p>
+        </div>
+      )}
+
+      {/* Buttons — Fixed: added gap between them */}
+      <div className="flex flex-col gap-3">
+        <button
+          onClick={handleSubmit}
+          disabled={loading}
+          className="w-full py-3.5 rounded-lg bg-[#44ACFF] text-[#091413] font-semibold hover:bg-[#5FB8FF] disabled:opacity-60 transition-colors btn-press"
+        >
+          {loading ? (
+            <span className="flex items-center justify-center gap-2">
+              <span className="w-4 h-4 border-2 border-[#091413]/30 border-t-[#091413] rounded-full animate-spin" />
+              Saving...
+            </span>
+          ) : (
+            "Save & Go to Dashboard"
+          )}
+        </button>
         <button
           onClick={handleSkip}
-          className="w-full border border-gray-500 text-gray-300 hover:border-gray-300 font-semibold py-3 rounded transition"
+          className="w-full py-3.5 rounded-lg border border-white/15 text-gray-300 font-semibold hover:border-white/30 transition-colors"
         >
           Skip for Now
         </button>
       </div>
-    </section>
+    </div>
+  </section>
   );
 };
 

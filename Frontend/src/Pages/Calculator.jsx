@@ -71,7 +71,8 @@ const Calculator = () => {
 
   const [error, setError] = useState("");
 
-  const { calculate, loading, EVresult, setEVResult } = useCalculator();
+  const { calculate, loading, EVresult, setEVResult, calcError } =
+    useCalculator();
 
   const handleCalculator = () => {
     if (
@@ -124,7 +125,10 @@ const Calculator = () => {
   const smartInsights = allInsights.filter((msg) => isTrendInsight(msg));
 
   return (
-    <section ref={ref} className="bg-[#091413] min-h-screen px-6 py-24 pt-36">
+    <section
+      ref={ref}
+      className="bg-[#091413] min-h-screen px-6 py-24 md:pt-28"
+    >
       <div className="max-w-6xl mx-auto">
         {/* Page Header */}
         <div className="flex flex-col items-center text-center mb-12">
@@ -145,7 +149,10 @@ const Calculator = () => {
         {/* Two Column Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* LEFT input form */}
-          <div ref={ref1} className=" bg-[#0F1F1D] border border-white/10 rounded-2xl p-8 flex flex-col gap-8">
+          <div
+            ref={ref1}
+            className=" bg-[#0F1F1D] border border-white/10 rounded-2xl p-8 flex flex-col gap-8"
+          >
             {/* Group 1 Battery */}
             <div className="flex flex-col gap-4">
               <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-widest border-b border-white/5 pb-2">
@@ -320,57 +327,79 @@ const Calculator = () => {
           </div>
 
           {/* RIGHT Result Panel */}
-          <div ref={ref2} className=" bg-[#0F1F1D] border border-white/10 rounded-2xl p-8 flex flex-col gap-6">
-            {!EVresult ? (
+          <div className="bg-[#0F1F1D] border border-white/10 rounded-2xl p-8 flex flex-col gap-6">
+            {/* API/network error state */}
+            {calcError && !EVresult && (
+              <div className="flex-1 flex flex-col items-center justify-center text-center gap-4 py-20">
+                <div className="w-16 h-16 rounded-full bg-red-500/10 border border-red-500/20 flex items-center justify-center text-2xl">
+                  ⚠️
+                </div>
+                <h3 className="font-bold text-lg text-[#E8EDEC]">
+                  Calculation Failed
+                </h3>
+                <p className="text-red-400 text-sm max-w-xs">{calcError}</p>
+                <button
+                  onClick={reset}
+                  className="px-6 py-2 rounded-lg border border-white/15 text-gray-300 text-sm hover:border-white/30 transition-colors"
+                >
+                  Try Again
+                </button>
+              </div>
+            )}
+
+            {/* Empty state */}
+            {!EVresult && !calcError && (
               <div className="flex-1 flex flex-col items-center justify-center text-center gap-4 py-20">
                 <div className="w-16 h-16 rounded-full bg-[#44ACFF]/10 border border-[#44ACFF]/20 flex items-center justify-center text-2xl">
                   ⚡
                 </div>
                 <h3 className="font-bold text-lg text-[#E8EDEC]">
-                  {" "}
-                  Run your first analysis{" "}
+                  Run your first analysis
                 </h3>
                 <p className="text-gray-500 text-sm max-w-xs">
-                  Fill in the fields on the left and click Anal Fill the filed
-                  on left side and click analyze to see you battery and
-                  efficiency result here.{" "}
+                  Fill in the fields on the left and click Analyze to see your
+                  battery and efficiency results here.
                 </p>
               </div>
-            ) : (
+            )}
+
+            {/* Results */}
+            {EVresult && (
               <>
                 <div className="flex items-center justify-between">
                   <h2 className="font-bold text-xl text-[#E8EDEC]">
-                    {" "}
-                    Analysis Result{" "}
+                    Analysis Results
                   </h2>
                   <span className="text-xs text-green-400 bg-green-400/10 border border-green-400/20 px-2.5 py-1 rounded-full">
                     ✓ Complete
                   </span>
                 </div>
 
-                {/* stat cards */}
-                <div>
+                {/* Stat cards — Fixed: now in 2-col grid */}
+                <div className="grid grid-cols-2 gap-3">
                   <StatsCard
                     label="Estimated Range"
                     value={`${EVresult.data.range} km`}
                   />
                   <StatsCard
                     label="Efficiency Score"
-                    value={`${EVresult.data.efficiency} `}
+                    value={EVresult.data.efficiency}
                   />
                   <StatsCard
                     label="Battery Usage"
-                    value={`${EVresult.data.batteryUsage} % `}
+                    value={`${EVresult.data.batteryUsage}%`}
                   />
                   <StatsCard
                     label="Battery Stress"
-                    value={EVresult.data.battery_Stress ?? "N/A"}
+                    // Fixed: was battery_Stress → batteryStress
+                    value={EVresult.data.batteryStress ?? "N/A"}
                   />
                   <StatsCard
                     label="Energy Consumption"
+                    // Fixed: was energy_Consumption → energyConsumption
                     value={
-                      EVresult.data.energy_Consumption
-                        ? `${EVresult.data.energy_Consumption} kWh / 100`
+                      EVresult.data.energyConsumption
+                        ? `${EVresult.data.energyConsumption} kWh/100km`
                         : "N/A"
                     }
                   />
@@ -387,7 +416,7 @@ const Calculator = () => {
                   />
                 </div>
 
-                {/* Level 1 Basic Insights */}
+                {/* Level 1 — Basic Insights */}
                 {basicInsights.length > 0 && (
                   <div className="flex flex-col gap-2">
                     <h3 className="font-semibold text-sm text-gray-400 uppercase tracking-wider">
@@ -399,7 +428,7 @@ const Calculator = () => {
                           key={i}
                           className="flex items-start gap-2 text-sm text-gray-300"
                         >
-                          <span className="text-[#44ACFF] mt-0.5"> ✦ </span>
+                          <span className="text-[#44ACFF] mt-0.5">✦</span>
                           {msg}
                         </li>
                       ))}
@@ -407,26 +436,25 @@ const Calculator = () => {
                   </div>
                 )}
 
-                {/* Level 2 Smart Insights */}
+                {/* Level 2 — Smart Insights */}
                 {smartInsights.length > 0 && (
                   <div className="bg-[#091413] border border-purple-500/20 rounded-xl p-4 flex flex-col gap-3">
                     <div className="flex items-center gap-2">
-                      <span className="text-lg"> 🧠 </span>
+                      <span className="text-lg">🧠</span>
                       <h3 className="font-semibold text-sm text-purple-300">
                         Smart Insights
                       </h3>
                     </div>
                     <p className="text-xs text-gray-500">
-                      {" "}
-                      Based on your recent calculation history{" "}
+                      Based on your recent calculation history
                     </p>
-                    <ul>
+                    <ul className="flex flex-col gap-2">
                       {smartInsights.map((msg, i) => (
                         <li
                           key={i}
                           className="flex items-start gap-2 text-sm text-purple-100"
                         >
-                          <span> ✦</span>
+                          <span className="text-purple-400 mt-0.5">✦</span>
                           {msg}
                         </li>
                       ))}
@@ -434,7 +462,7 @@ const Calculator = () => {
                   </div>
                 )}
 
-                {/*  CTA */}
+                {/* CTA */}
                 <Link
                   to="/dashboard"
                   className="w-full py-3 rounded-lg border border-white/15 text-[#E8EDEC] text-sm font-semibold text-center hover:border-[#44ACFF]/50 hover:bg-white/5 transition-colors"

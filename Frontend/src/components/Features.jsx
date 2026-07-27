@@ -37,7 +37,7 @@ const Features = () => {
     <section 
     ref={ref}
     className="reveal bg-[#091413] py-24 px-6 border-t border-white/5">
-      <div className="max-w-6xl mx-auto flex flex-col items-center">
+      <div className="max-w-6xl  mx-auto flex flex-col items-center">
         <p className={typography.eyeBrow}> The Platform </p>
         <h2 className={typography.h2}> 
           Smart features for the future of driving

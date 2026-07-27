@@ -150,7 +150,7 @@ const Dashboard = () => {
   );
 
   return (
-    <div className="min-h-screen bg-[#091413] px-6 py-24 pt-32">
+    <div className="min-h-screen bg-[#091413] px-6 py-20 md:pt-32">
       <div className="max-w-5xl mx-auto flex flex-col gap-8">
 
         {/* ── Header — no reveal, always visible on load ── */}
@@ -409,7 +409,7 @@ const Dashboard = () => {
                       </span>
                     </td>
                     <td className="py-3 text-sm text-gray-400 capitalize">
-                      {c.drivingCondition}
+                      {c.DrivingCondition}
                     </td>
                     <td className="py-3 text-sm text-gray-500">
                       {new Date(c.date).toLocaleDateString()}

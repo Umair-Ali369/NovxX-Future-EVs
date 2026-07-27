@@ -41,6 +41,32 @@ exports.registerUser = async (req, res) => {
 };
 
 // LOGIN USER
+// exports.loginUser = async (req, res) => {
+//   try {
+//     const { email, password } = req.body;
+//     const user = await User.findOne({ email });
+//     if (!user) {
+//       return res.status(400).json({ message: "User Not Found." });
+//     }
+
+//     const isValid = await bcrypt.compare(password, user.password);
+//     if (!isValid) {
+//       return res.status(400).json({ message: "Invalid Credential" });
+//     }
+//     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+//       expiresIn: "30d",
+//     });
+
+//     res.status(200).json({
+//       message: "Logged!",
+//       User: user,
+//       token,
+//     });
+//   } catch (err) {
+//     res.status(500).json({ message: `Server Error : ${err.message}` });
+//   }
+// };
+
 exports.loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -58,15 +84,20 @@ exports.loginUser = async (req, res) => {
       expiresIn: "30d",
     });
 
-    res.status(200).json({
+    // sanitize user object
+    const { password: _, ...safeUser } = user._doc;
+
+    return res.status(200).json({
       message: "Logged!",
-      User: user,
+      User: safeUser,
       token,
     });
   } catch (err) {
-    res.status(500).json({ message: `Server Error : ${err.message}` });
+    console.error("LOGIN ERROR:", err);
+    return res.status(500).json({ message: `Server Error : ${err.message}` });
   }
 };
+
 
 // DASHBOARD VIEW
 exports.dashboard = async (req, res) => {

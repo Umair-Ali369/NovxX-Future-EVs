@@ -9,14 +9,14 @@ import { DashboardProvider } from "./context/DashboardContext.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <CalculatorProvider>
-          <DashboardProvider>
-      <BrowserRouter>
-        <AuthProvider>
+    <BrowserRouter>
+      <AuthProvider>
+        <DashboardProvider>
+          <CalculatorProvider>
             <App />
-        </AuthProvider>
-      </BrowserRouter>
-          </DashboardProvider>
-    </CalculatorProvider>
+          </CalculatorProvider>
+        </DashboardProvider>
+      </AuthProvider>
+    </BrowserRouter>
   </StrictMode>,
 );

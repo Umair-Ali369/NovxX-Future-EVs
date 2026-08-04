@@ -9,7 +9,7 @@ import VehicleVision from '../components/VehicleVision'
 
 const Home = () => {
   return (
-   <main className='bg-gray-800 md:pt-10'>
+   <main className='bg-[#091413]'>
     <Hero/>
     <WhyNoxX/>
     <Features/>

@@ -57,7 +57,7 @@ const Features = () => {
   return (
     <div className="bg-[#091413] min-h-screen text-white">
       {/* HERO */}
-      <section ref={ref} className="relative flex flex-col items-center justify-center text-center px-6 py-40 pt-48 border-b border-white/5 overflow-hidden">
+      <section ref={ref} className="relative flex flex-col items-center justify-center text-center px-6 py-20 md:pt-28 border-b border-white/5 overflow-hidden">
         <div
           className="absolute inset-0 opacity-[0.05]"
           style={{

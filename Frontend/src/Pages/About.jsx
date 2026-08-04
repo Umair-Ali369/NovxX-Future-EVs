@@ -13,11 +13,11 @@ const About = () => {
   const ref4 = useScrollReveal();
   const ref5 = useScrollReveal();
   return (
-    <div className="bg-[#091413] min-h-screen text-white">
+    <div className="bg-[#091413] min-h-screen text-white ">
       {/* hero  */}
       <section
         ref={ref}
-        className="relative flex flex-col items-center justify-center text-center px-6 py-40 pt-48 border-b border-white/5 overflow-hidden"
+        className="relative flex flex-col items-center justify-center text-center px-6 py-20 md:pt-28 border-b border-white/5 overflow-hidden"
       >
         <div
           className="absolute inset-0 opacity-[0.05]"

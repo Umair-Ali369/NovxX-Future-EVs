@@ -191,9 +191,9 @@ exports.evCalculator = async (req, res) => {
       range: calculate.finalRange.toFixed(1),
       efficiency: calculate.efficiency,
       batteryUsage: calculate.batteryPercent,
-      driving_Condition: calculate.DrivingCondition,
-      battery_Stress: calculate.batteryStress,
-      energy_Consumption: calculate.energyConsumption.toFixed(2),
+      drivingCondition: calculate.DrivingCondition,
+      batteryStress: calculate.batteryStress,
+      energyConsumption: calculate.energyConsumption.toFixed(2),
       insights: [...insights, ...smartInsights],
     });
 

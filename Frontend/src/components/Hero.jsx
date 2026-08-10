@@ -45,11 +45,12 @@ const StatItem = ({ value, label, isNumeric, suffix = "" }) => {
 };
 
 const Hero = () => {
-  const ref = useScrollReveal()
+  const ref = useScrollReveal();
   return (
     <section
-    ref={ref}
-    className="relative min-h-screen w-full flex items-center justify-center bg-[#091413] overflow-hidden">
+      ref={ref}
+      className="relative min-h-screen w-full flex items-center justify-center bg-[#091413] overflow-hidden"
+    >
       <div
         className="absolute inset-0 opacity-[0.07]"
         style={{
@@ -78,7 +79,10 @@ const Hero = () => {
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4 mt-10">
-          <Link to="/register" className={`px-8 py-3.5 rounded-lg bg-[#44ACFF] text-[#091413] font-semibold hover:bg-[#5FB8FF] transition-colors btn-press`}>
+          <Link
+            to="/register"
+            className={`px-8 py-3.5 rounded-lg bg-[#44ACFF] text-[#091413] font-semibold hover:bg-[#5FB8FF] transition-colors btn-press`}
+          >
             Get Started
           </Link>
           <Link to="/features" className={`${btn.ghost} btn-press`}>

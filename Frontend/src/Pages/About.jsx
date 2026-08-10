@@ -44,10 +44,7 @@ const About = () => {
             vehicle for the next generation - starting with intelligence
             platform that will power them.
           </p>
-          <Link
-            to="/register"
-            className={btn.primary}
-          >
+          <Link to="/register" className={btn.primary}>
             Join the Future
           </Link>
         </div>
@@ -56,15 +53,13 @@ const About = () => {
       {/* problems -> solutions */}
       <section ref={ref1} className="reveal py-24 px-6 border-b border-white/5">
         <div className="max-w-6xl mx-auto">
-          <p className={typography.eyeBrow}>
-            Why We Exist
-          </p>
-          <h2 className={typography.h2}>
-            A Real Problem - A Focused Solution
-          </h2>
+          <p className={typography.eyeBrow}>Why We Exist</p>
+          <h2 className={typography.h2}>A Real Problem - A Focused Solution</h2>
 
           <div className=" grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className={`${card.paddedHover} flex flex-col gap-4 card-lift`}>
+            <div
+              className={`${card.paddedHover} flex flex-col gap-4 card-lift`}
+            >
               <span className="text-3xl">⚠️</span>
               <h3 className="font-bold text-xl text-[#E8EDEC]"> The Problem</h3>
               <p className="text-gray-400 leading-relaxed">
@@ -75,7 +70,9 @@ const About = () => {
               </p>
             </div>
 
-            <div className={`${card.paddedHover} card-lift flex flex-col gap-4`}>
+            <div
+              className={`${card.paddedHover} card-lift flex flex-col gap-4`}
+            >
               <span className="text-3xl"> ⚡ </span>
               <h3 className="font-bold text-xl text-[#E8EDEC]">
                 {" "}
@@ -97,7 +94,11 @@ const About = () => {
         className="reveal bg-[#0F1F1D] py-24 px-6 border-b border-white/5"
       >
         <div className="max-w-4xl mx-auto flex flex-col gap-6">
-          <p className={"text-[#44ACFF] font-semibold tracking-widest uppercase text-sm"}>
+          <p
+            className={
+              "text-[#44ACFF] font-semibold tracking-widest uppercase text-sm"
+            }
+          >
             The Founder
           </p>
           <h2 className="font-bold text-3xl md:text-4xl text-[#E8EDEC]">
@@ -159,7 +160,11 @@ const About = () => {
       <section ref={ref3} className="reveal py-24 px-6 border-b border-white/5">
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-16">
           <div className="w-full md:w-1/2 flex flex-col gap-6">
-            <p className={"text-[#44ACFF] font-semibold tracking-widest uppercase text-sm"}>
+            <p
+              className={
+                "text-[#44ACFF] font-semibold tracking-widest uppercase text-sm"
+              }
+            >
               {" "}
               Our Mission{" "}
             </p>
@@ -250,10 +255,7 @@ const About = () => {
             >
               Join Us
             </Link>
-            <Link
-              to="/concept"
-              className={`${btn.ghost} btn-press`}
-            >
+            <Link to="/concept" className={`${btn.ghost} btn-press`}>
               See the Vision
             </Link>
           </div>

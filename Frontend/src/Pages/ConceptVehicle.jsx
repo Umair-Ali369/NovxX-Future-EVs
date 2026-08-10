@@ -16,7 +16,7 @@ const ConceptVehicle = () => {
   return (
     <div className="bg-[#091413] min-h-screen text-white">
       {/* Hero Section */}
-      <section ref={ref} className="flex flex-col items-center justify-center text-center px-6 py-40 pt-48 border-b border-white/5 overflow-hidden relative">
+      <section ref={ref} className="flex flex-col items-center justify-center text-center px-6 py-40 pt-16 lg:pt-32 border-b border-white/5 overflow-hidden relative">
         <div
           className="absolute inset-0 opacity-[0.05]"
           style={{
@@ -183,7 +183,7 @@ const ConceptVehicle = () => {
       </section>
 
       {/* Future Mobility */}
-      <section
+      {/* <section
         ref={ref4}
         className="reveal border-t border-white/5 py-24 px-6 bg-[#0F1F1D]/40"
       >
@@ -228,11 +228,11 @@ const ConceptVehicle = () => {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Timeline / Roadmap */}
       <section
-        ref={ref5}
+        ref={ref4}
         className="reveal border-t border-white/5 py-24 px-6 bg-[#0F1F1D]/40"
       >
         <div className="max-w-4xl mx-auto text-center">
@@ -314,8 +314,8 @@ const ConceptVehicle = () => {
 
       {/* CTA */}
       <section
-        ref={ref6}
-        className="reveal border-t border-white/5 py-24 px-6 text-center"
+        ref={ref5}
+        className="border-t border-white/5 py-24 px-6 text-center"
       >
         <h2 className="text-3xl md:text-4xl font-bold text-[#E8EDEC] mb-4">
           Be part of what we are building

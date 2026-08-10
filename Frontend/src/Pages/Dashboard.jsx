@@ -114,8 +114,8 @@ const Dashboard = () => {
           No calculations yet
         </h2>
         <p className="text-gray-500 max-w-sm">
-          Hi {user?.name} — run your first battery analysis to start seeing
-          your performance data here.
+          Hi {user?.name} — run your first battery analysis to start seeing your
+          performance data here.
         </p>
         <Link
           to="/calculator"
@@ -146,13 +146,12 @@ const Dashboard = () => {
     return acc;
   }, {});
   const conditionChartData = Object.entries(conditionCounts).map(
-    ([name, value]) => ({ name, value })
+    ([name, value]) => ({ name, value }),
   );
 
   return (
     <div className="min-h-screen bg-[#091413] px-6 py-20 md:pt-32">
       <div className="max-w-5xl mx-auto flex flex-col gap-8">
-
         {/* ── Header — no reveal, always visible on load ── */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div>
@@ -160,8 +159,7 @@ const Dashboard = () => {
               Control Center
             </p>
             <h1 className="text-3xl md:text-4xl text-[#E8EDEC] font-bold">
-              Welcome back,{" "}
-              <span className="text-[#44ACFF]">{user?.name}</span>
+              Welcome back, <span className="text-[#44ACFF]">{user?.name}</span>
             </h1>
             <p className="text-gray-500 text-sm mt-1">
               Here's your EV performance overview.
@@ -176,10 +174,7 @@ const Dashboard = () => {
         </div>
 
         {/* ── Stat Cards ── */}
-        <div
-          ref={statsRef}
-          className=" grid grid-cols-1 sm:grid-cols-3 gap-4"
-        >
+        <div ref={statsRef} className=" grid grid-cols-1 sm:grid-cols-3 gap-4">
           <StatCard
             label="Average Range"
             value={`${statsData.data.avgRange.toFixed(1)} km`}
@@ -203,10 +198,7 @@ const Dashboard = () => {
         </div>
 
         {/* ── Range History + Efficiency Trend ── */}
-        <div
-          ref={chartsRef}
-          className="grid grid-cols-1 lg:grid-cols-2 gap-6"
-        >
+        <div ref={chartsRef} className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Range History */}
           <div className="bg-[#0F1F1D] border border-white/10 rounded-xl p-6">
             <h3 className="text-lg font-bold text-[#E8EDEC] mb-6">
@@ -217,7 +209,7 @@ const Dashboard = () => {
                 Not enough data to show a trend.
               </p>
             ) : (
-              <ResponsiveContainer width="100%" height={220}>
+              <ResponsiveContainer width="100%" height={180}>
                 <LineChart data={chartData}>
                   <CartesianGrid strokeDasharray="3 3" stroke="#ffffff08" />
                   <XAxis dataKey="label" stroke="#4b5563" fontSize={11} />
@@ -247,7 +239,7 @@ const Dashboard = () => {
                 Not enough data to show a trend.
               </p>
             ) : (
-              <ResponsiveContainer width="100%" height={220}>
+              <ResponsiveContainer width="100%" height={180}>
                 <LineChart data={chartData}>
                   <CartesianGrid strokeDasharray="3 3" stroke="#ffffff08" />
                   <XAxis dataKey="label" stroke="#4b5563" fontSize={11} />
@@ -257,7 +249,7 @@ const Dashboard = () => {
                     domain={[0, 3]}
                     ticks={[1, 2, 3]}
                     tickFormatter={(v) =>
-                      ({ 1: "Low", 2: "Moderate", 3: "High" }[v] || "")
+                      ({ 1: "Low", 2: "Moderate", 3: "High" })[v] || ""
                     }
                   />
                   <Tooltip
@@ -301,7 +293,7 @@ const Dashboard = () => {
             {conditionChartData.length === 0 ? (
               <p className="text-gray-500 text-sm">No data yet.</p>
             ) : (
-              <ResponsiveContainer width="100%" height={220}>
+              <ResponsiveContainer width="100%" height={180}>
                 <PieChart>
                   <Pie
                     data={conditionChartData}
@@ -334,17 +326,13 @@ const Dashboard = () => {
             {chartData.length === 0 ? (
               <p className="text-gray-500 text-sm">No data yet.</p>
             ) : (
-              <ResponsiveContainer width="100%" height={220}>
+              <ResponsiveContainer width="100%" height={180}>
                 <BarChart data={chartData}>
                   <CartesianGrid strokeDasharray="3 3" stroke="#ffffff08" />
                   <XAxis dataKey="label" stroke="#4b5563" fontSize={11} />
                   <YAxis stroke="#4b5563" fontSize={11} />
                   <Tooltip content={<CustomTooltip />} />
-                  <Bar
-                    dataKey="range"
-                    name="Range (km)"
-                    radius={[4, 4, 0, 0]}
-                  >
+                  <Bar dataKey="range" name="Range (km)" radius={[4, 4, 0, 0]}>
                     {chartData.map((entry, i) => (
                       <Cell
                         key={i}
@@ -401,8 +389,8 @@ const Dashboard = () => {
                           c.efficiency === "High"
                             ? "bg-green-600/15 text-green-400 border border-green-600/25"
                             : c.efficiency === "Moderate"
-                            ? "bg-amber-600/15 text-amber-400 border border-amber-600/25"
-                            : "bg-red-600/15 text-red-400 border border-red-600/25"
+                              ? "bg-amber-600/15 text-amber-400 border border-amber-600/25"
+                              : "bg-red-600/15 text-red-400 border border-red-600/25"
                         }`}
                       >
                         {c.efficiency}
@@ -441,7 +429,6 @@ const Dashboard = () => {
             Run New Analysis
           </Link>
         </div>
-
       </div>
     </div>
   );

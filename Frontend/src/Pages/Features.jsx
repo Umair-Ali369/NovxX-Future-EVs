@@ -7,6 +7,8 @@ import { FaChargingStation } from "react-icons/fa";
 import { GiCarBattery, GiArtificialIntelligence } from "react-icons/gi";
 import { FaRoute, FaChartLine, FaUser } from "react-icons/fa6";
 import useScrollReveal from "../hooks/useScrollReveal"
+import { useState } from "react";
+import { toast } from "react-toastify";
 
 const FEATURES = [
   {
@@ -54,7 +56,8 @@ const Features = () => {
   const ref3 = useScrollReveal()
   const ref4 = useScrollReveal()
   const ref5 = useScrollReveal()
-  return (
+
+    return (
     <div className="bg-[#091413] min-h-screen text-white">
       {/* HERO */}
       <section ref={ref} className="relative flex flex-col items-center justify-center text-center px-6 py-20 md:pt-28 border-b border-white/5 overflow-hidden">
@@ -89,12 +92,16 @@ const Features = () => {
             >
               Get Started
             </Link>
-            <Link
+            <button
+           
+            >
+              <Link
               to="/calculator"
               className="px-7 py-3.5 rounded-lg border border-white/15 text-[#E8EDEC] font-semibold hover:border-[#44ACFF]/50 hover:bg-white/5 transition-colors"
             >
               Try Calculator
             </Link>
+            </button>
           </div>
         </div>
       </section>

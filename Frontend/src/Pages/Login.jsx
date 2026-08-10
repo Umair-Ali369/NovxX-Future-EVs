@@ -41,7 +41,7 @@ const Login = () => {
   };
   
   return (
-    <section className="min-h-screen pb-10 pt-16 bg-[#091413] flex items-center justify-center px-4">
+    <section className="min-h-screen pb-10 pt-16 lg:pt-32 bg-[#091413] flex items-center justify-center px-4">
       <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-[#44ACFF]/5 rounded-full blur-3xl pointer-events-none" />
       <div>
         {/* Logo and Brand*/}
@@ -58,7 +58,7 @@ const Login = () => {
         </div>
 
         {/* Card */}
-        <div className="bg-[#0F1F1D] border w-[500px] border-white/10 rounded-2xl p-8">
+        <div className="bg-[#0F1F1D] border w-auto md:w-[500px] border-white/10 rounded-2xl p-8">
           <h2 className="font-bold text-2xl text-[#E8EDEC] mb-6">
             Welcome Back
           </h2>

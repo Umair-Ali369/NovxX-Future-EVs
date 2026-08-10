@@ -3,7 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { IoMenu, IoClose } from "react-icons/io5";
 import { useAuth } from "../context/AuthContext";
 import mylogo from "../assets/images/mylogo.png";
-import { btn } from "../theme"
+import { btn } from "../theme";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -37,7 +37,11 @@ const Navbar = () => {
       >
         {/* Left — Logo */}
         <Link to="/">
-          <img src={mylogo} alt="NovxX" className="h-[5rem] w-auto object-contain" />
+          <img
+            src={mylogo}
+            alt="NovxX"
+            className="h-[5rem] w-auto object-contain"
+          />
         </Link>
 
         {/* Center — Public pages (what NovxX is) */}
@@ -46,8 +50,8 @@ const Navbar = () => {
             Features
           </Link>
           <Link to="/learn" className={navLinkClass("/learn")}>
-              Learn EV
-            </Link>
+            Learn EV
+          </Link>
           <Link to="/concept" className={navLinkClass("/concept")}>
             Concept
           </Link>
@@ -60,10 +64,7 @@ const Navbar = () => {
         <div className="flex items-center gap-3">
           {!user ? (
             <>
-              <Link
-                to="/register"
-                className={btn.primarySm}
-              >
+              <Link to="/register" className={btn.primarySm}>
                 Get Started
               </Link>
               <Link to="/login" className={navLinkClass("/login")}>
@@ -92,9 +93,7 @@ const Navbar = () => {
               >
                 {user?.name?.charAt(0).toUpperCase() || "U"}
               </Link>
-              <button
-                onClick={logOut}
-                className={btn.danger}>
+              <button onClick={logOut} className={btn.danger}>
                 Logout
               </button>
             </>
@@ -104,98 +103,93 @@ const Navbar = () => {
 
       {/* ── Mobile Bar ── */}
       <div className="md:hidden flex items-center justify-between py-3 px-4 bg-[#091413]/95 backdrop-blur-sm border-b border-white/5 fixed top-0 w-full z-50">
-          <Link to="/">
-            <img
-              src={mylogo}
-              alt="NovxX"
-              className="h-8 w-auto object-contain"
-            />
-          </Link>
-          <button
-            className="text-gray-300 hover:text-white transition-colors"
-            onClick={() => setIsOpen(!isOpen)}
-            aria-label="Toggle menu"
-          >
-            {isOpen ? <IoClose size={26} /> : <IoMenu size={26} />}
-          </button>
-        </div>
- 
-        {/* ── Mobile Dropdown ── */}
-        {isOpen && (
-          <div className="md:hidden fixed top-[57px] left-0 right-0 bg-[#0F1F1D] border-b border-white/10 z-40 max-h-[85vh] overflow-y-auto">
-            <div className="flex flex-col p-4 gap-1">
- 
-              {/* Public links */}
-              <p className="text-gray-600 text-xs font-semibold tracking-widest uppercase px-2 pt-2 pb-1">
-                Explore
-              </p>
-              {[
-                { to: "/", label: "Home" },
-                { to: "/features", label: "Features" },
-                { to: "/learn", label: "Learn EV" },
-                { to: "/concept", label: "Concept" },
-                { to: "/about", label: "About" },
-              ].map(({ to, label }) => (
+        <Link to="/">
+          <img src={mylogo} alt="NovxX" className="h-8 w-auto object-contain" />
+        </Link>
+        <button
+          className="text-gray-300 hover:text-white transition-colors"
+          onClick={() => setIsOpen(!isOpen)}
+          aria-label="Toggle menu"
+        >
+          {isOpen ? <IoClose size={26} /> : <IoMenu size={26} />}
+        </button>
+      </div>
+
+      {/* ── Mobile Dropdown ── */}
+      {isOpen && (
+        <div className="md:hidden fixed top-[57px] left-0 right-0 bg-[#0F1F1D] border-b border-white/10 z-40 max-h-[85vh] overflow-y-auto">
+          <div className="flex flex-col p-4 gap-1">
+            {/* Public links */}
+            <p className="text-gray-600 text-xs font-semibold tracking-widest uppercase px-2 pt-2 pb-1">
+              Explore
+            </p>
+            {[
+              { to: "/", label: "Home" },
+              { to: "/features", label: "Features" },
+              { to: "/learn", label: "Learn EV" },
+              { to: "/concept", label: "Concept" },
+              { to: "/about", label: "About" },
+            ].map(({ to, label }) => (
+              <Link
+                key={to}
+                to={to}
+                className={`py-3 px-2 text-sm border-b border-white/5 transition-colors ${
+                  location.pathname === to
+                    ? "text-[#44ACFF]"
+                    : "text-[#E8EDEC] hover:text-[#44ACFF]"
+                }`}
+              >
+                {label}
+              </Link>
+            ))}
+
+            {!user ? (
+              // Fixed: added flex flex-col gap-3 — buttons had no gap
+              <div className="flex flex-col gap-3 mt-4">
                 <Link
-                  key={to}
-                  to={to}
-                  className={`py-3 px-2 text-sm border-b border-white/5 transition-colors ${
-                    location.pathname === to
-                      ? "text-[#44ACFF]"
-                      : "text-[#E8EDEC] hover:text-[#44ACFF]"
-                  }`}
+                  to="/register"
+                  className="px-4 py-3 rounded-lg bg-[#44ACFF] text-[#091413] text-center font-semibold text-sm"
                 >
-                  {label}
+                  Get Started
                 </Link>
-              ))}
- 
-              {!user ? (
-                // Fixed: added flex flex-col gap-3 — buttons had no gap
-                <div className="flex flex-col gap-3 mt-4">
+                <Link
+                  to="/login"
+                  className="px-4 py-3 rounded-lg border border-white/10 text-gray-300 text-center text-sm"
+                >
+                  Sign In
+                </Link>
+              </div>
+            ) : (
+              <>
+                <p className="text-gray-600 text-xs font-semibold tracking-widest uppercase px-2 pt-4 pb-1">
+                  My Platform
+                </p>
+                {[
+                  { to: "/calculator", label: "Calculator" },
+                  { to: "/dashboard", label: "Dashboard" },
+                  { to: "/profile", label: "Profile" }, // Fixed: was lable typo
+                ].map(({ to, label }) => (
                   <Link
-                    to="/register"
-                    className="px-4 py-3 rounded-lg bg-[#44ACFF] text-[#091413] text-center font-semibold text-sm"
+                    key={to}
+                    to={to}
+                    className={`py-3 px-2 text-sm border-b border-white/5 transition-colors ${
+                      location.pathname === to
+                        ? "text-[#44ACFF]"
+                        : "text-[#E8EDEC] hover:text-[#44ACFF]"
+                    }`}
                   >
-                    Get Started
+                    {label}
                   </Link>
-                  <Link
-                    to="/login"
-                    className="px-4 py-3 rounded-lg border border-white/10 text-gray-300 text-center text-sm"
-                  >
-                    Sign In
-                  </Link>
-                </div>
-              ) : (
-                <>
-                  <p className="text-gray-600 text-xs font-semibold tracking-widest uppercase px-2 pt-4 pb-1">
-                    My Platform
-                  </p>
-                  {[
-                    { to: "/calculator", label: "Calculator" },
-                    { to: "/dashboard", label: "Dashboard" },
-                    { to: "/profile", label: "Profile" }, // Fixed: was lable typo
-                  ].map(({ to, label }) => (
-                    <Link
-                      key={to}
-                      to={to}
-                      className={`py-3 px-2 text-sm border-b border-white/5 transition-colors ${
-                        location.pathname === to
-                          ? "text-[#44ACFF]"
-                          : "text-[#E8EDEC] hover:text-[#44ACFF]"
-                      }`}
-                    >
-                      {label}
-                    </Link>
-                  ))}
-                  <button
-                    onClick={logOut}
-                    className="mt-4 px-4 py-3 rounded-lg border border-white/10 text-gray-400 text-sm font-medium text-center hover:border-red-400/50 hover:text-red-400 transition-colors"
-                  >
-                    Logout
-                  </button>
-                </>
-              )}
-            </div>
+                ))}
+                <button
+                  onClick={logOut}
+                  className="mt-4 px-4 py-3 rounded-lg border border-white/10 text-gray-400 text-sm font-medium text-center hover:border-red-400/50 hover:text-red-400 transition-colors"
+                >
+                  Logout
+                </button>
+              </>
+            )}
+          </div>
         </div>
       )}
     </nav>

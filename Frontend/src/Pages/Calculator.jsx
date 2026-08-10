@@ -131,16 +131,16 @@ const Calculator = () => {
     <>
       <section
         ref={ref}
-        className="bg-[#091413] min-h-screen px-6 py-24 md:pt-28"
+        className="bg-[#091413] min-h-screen px-4 md:px-6 py-16 md:py-24 pt-24 md:pt-32"
       >
         <div className="max-w-6xl mx-auto">
           {/* Page Header */}
-          <div className="flex flex-col items-center text-center mb-12">
+          <div className="flex flex-col items-center text-center mb-8 md:mb-12">
             <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#44ACFF]/30 bg-[#44ACFF]/5 text-[#44ACFF] text-xs font-semibold tracking-widest uppercase mb-6">
               <span className="w-1.5 h-1.5 rounded-full bg-[#44ACFF] animate-pulse" />
               Battery & Efficiency Analyzer
             </span>
-            <h1 className="font-bold text-3xl md:text-5xl text-[#E8EDEC] leading-tight mb-4">
+            <h1 className="font-bold text-2xl md:text-5xl text-[#E8EDEC] leading-tight mb-3 md:mb-4">
               Analyze Your EV performance
             </h1>
             <p className="text-gray-400 max-w-2xl leading-relaxed">
@@ -151,11 +151,11 @@ const Calculator = () => {
           </div>
 
           {/* Two Column Layout */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">
             {/* LEFT input form */}
             <div
               ref={ref1}
-              className=" bg-[#0F1F1D] border border-white/10 rounded-2xl p-8 flex flex-col gap-8"
+              className=" bg-[#0F1F1D] border border-white/10 rounded-2xl p-5 md:p-8 flex flex-col gap-6 md:gap-8"
             >
               {/* Group 1 Battery */}
               <div className="flex flex-col gap-4">
@@ -331,7 +331,7 @@ const Calculator = () => {
             </div>
 
             {/* RIGHT Result Panel */}
-            <div className="bg-[#0F1F1D] border border-white/10 rounded-2xl p-8 flex flex-col gap-6">
+            <div className="bg-[#0F1F1D] border border-white/10 rounded-2xl p-5 md:p-8 flex flex-col gap-5 md:gap-6">
               {/* API/network error state */}
               {calcError && !EVresult && (
                 <div className="flex-1 flex flex-col items-center justify-center text-center gap-4 py-20">
@@ -388,7 +388,7 @@ const Calculator = () => {
                   </div>
 
                   {/* Stat cards — Fixed: now in 2-col grid */}
-                  <div className="grid grid-cols-2 gap-3">
+                  <div className="grid grid-cols-2 gap-2 md:gap-3">
                     <StatsCard
                       label="Estimated Range"
                       value={`${EVresult.data.range} km`}

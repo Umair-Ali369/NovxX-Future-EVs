@@ -1,12 +1,13 @@
-import { useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import { toast } from "react-toastify";
 
 const ProtectedRoute = ({ children }) => {
-  const navigate = useNavigate()
   const token = localStorage.getItem("token")
   const { user } = useAuth()
   if (!user || !token) {
-    <navigate to="/login" />;
+    toast.error("Please Sign in to explore more features!")
+    return <Navigate to="/login" replace />;
   }
   return children;
 };

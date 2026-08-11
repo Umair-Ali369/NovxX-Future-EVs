@@ -479,7 +479,7 @@ const Calculator = () => {
                     to="/dashboard"
                     className="w-full py-3 rounded-lg border border-white/15 text-[#E8EDEC] text-sm font-semibold text-center hover:border-[#44ACFF]/50 hover:bg-white/5 transition-colors"
                   >
-                    View Full Dashboard →
+                    View Full Dashboard
                   </Link>
                 </>
               )}

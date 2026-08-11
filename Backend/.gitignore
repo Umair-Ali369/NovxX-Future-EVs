@@ -1,1 +1,8 @@
+<<<<<<< HEAD
+/node_modules
+package-lock.json
+package.json
+=======
+node_modules/
+>>>>>>> af11f0f (Month 5 Completed)
 .env

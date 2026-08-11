@@ -73,9 +73,6 @@ const stations = [
 app.get("/stations", (req, res) => {
   res.json(stations);
 });
-
 app.use("/ev/api", userRoutes);
-
 const PORT = process.env.PORT || 9000;
-
 app.listen(PORT, () => console.log("Backend running on port 9000"));

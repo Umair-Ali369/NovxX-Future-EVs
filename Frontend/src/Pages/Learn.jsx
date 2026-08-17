@@ -314,6 +314,10 @@ const Learn = () => {
   const currentTopic = TOPICS.find((t) => t.id === activeTopic);
 
   const handleClickTopic = (id) => {
+    if (activeTopic === id) {
+      setActiveTopic(null)
+      return
+    }
     setActiveTopic(id);
     setTimeout(() => {
       document.getElementById("article")?.scrollIntoView({

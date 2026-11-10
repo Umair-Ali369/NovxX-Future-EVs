@@ -10,11 +10,13 @@ const Calculator = lazy(() => import("./Pages/Calculator"));
 const Stations = lazy(() => import("./Pages/Stations"));
 const Register = lazy(() => import("./Pages/Register"));
 const Login = lazy(() => import("./Pages/Login"));
+const Learn = lazy(() => import("./Pages/Learn"))
 const Dashboard = lazy(() => import("./Pages/Dashboard"));
 import ProtectedRoute from "./Api/ProtectRoute";
 const Profile = lazy(() => import("./Pages/Profile"));
 const VehicleSetup = lazy(() => import("./Pages/VehicleSetup"));
 const ConceptVehicle = lazy(() => import("./Pages/ConceptVehicle"));
+const Story = lazy(() => import("./Pages/Story"))
 import ScrollToTop from "./components/ScrollToTop";
 
 const App = () => {
@@ -56,6 +58,8 @@ const App = () => {
             <Route path="/about" element={<About />} />
             <Route path="/features" element={<Features />} />
             <Route path="/concept" element={<ConceptVehicle />} />
+            <Route path="/learn" element={<Learn />} />
+            <Route path="/story" element={<Story />} />
 
             <Route
               path="/calculator"

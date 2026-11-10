@@ -40,7 +40,7 @@ const Navbar = () => {
           <img
             src={mylogo}
             alt="NovxX"
-            className="h-[5rem] w-auto object-contain"
+            className="h-[3rem] w-auto object-contain"
           />
         </Link>
 
@@ -57,6 +57,9 @@ const Navbar = () => {
           </Link>
           <Link to="/about" className={navLinkClass("/about")}>
             About
+          </Link>
+          <Link to="/story" className={navLinkClass("/story")}>
+            Story
           </Link>
         </div>
 

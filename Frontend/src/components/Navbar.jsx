@@ -52,6 +52,9 @@ const Navbar = () => {
           <Link to="/learn" className={navLinkClass("/learn")}>
             Learn EV
           </Link>
+          <Link to="/ecosystem" className={navLinkClass("/ecosystem")}>
+            Ecosystem
+          </Link>
           <Link to="/concept" className={navLinkClass("/concept")}>
             Concept
           </Link>

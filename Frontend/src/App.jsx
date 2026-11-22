@@ -18,6 +18,7 @@ const VehicleSetup = lazy(() => import("./Pages/VehicleSetup"));
 const ConceptVehicle = lazy(() => import("./Pages/ConceptVehicle"));
 const Story = lazy(() => import("./Pages/Story"))
 import ScrollToTop from "./components/ScrollToTop";
+import Ecosystem from "./Pages/ecosystem";
 
 const App = () => {
   const location = useLocation();
@@ -59,6 +60,7 @@ const App = () => {
             <Route path="/features" element={<Features />} />
             <Route path="/concept" element={<ConceptVehicle />} />
             <Route path="/learn" element={<Learn />} />
+            <Route path="/ecosystem" element={<Ecosystem/>} />
             <Route path="/story" element={<Story />} />
 
             <Route
